@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — Firewall Positioning</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Firewall Positioning</h1>
+      <p>Performance first: line-rate threat prevention on every north-south link, with nothing in the GPU fabric.</p>
+    </div>
+
+    <div class="banner">
+      <strong>Incumbent: Fortinet FortiGate</strong> on Private Cloud (perimeter and VPN), per <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">Lambda docs</a>. Customers reach their clusters over FortiClient <strong>SSL-VPN</strong> with a username and password, and SSO is turned off. Fortinet <a class="src" href="https://community.fortinet.com/t5/FortiGate/Technical-Tip-Changes-on-SSL-VPN-modes-starting-from-v7-6-3/ta-p/388462" target="_blank" rel="noopener">removed SSL-VPN tunnel mode in FortiOS 7.6.3</a>, so Lambda has to re-plumb customer VPN access either way. That is the opening.
+    </div>
+
+    <p class="section-label">Recommendation by enforcement point</p>
+    <div class="card table-wrap" style="padding:8px 8px;margin-bottom:16px;">
+      <table class="scoreboard-table">
+        <thead>
+          <tr><th>Enforcement point</th><th>Recommend</th><th>Key numbers</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Private Cloud HA perimeter<br /><span class="note">dual DIA, per-customer, replaces FortiGate</span></td>
+            <td><strong>PA-5580</strong> HA pair<br /><span class="note">PA-5570 or PA-5560 for smaller clusters</span></td>
+            <td>Threat prevention (appmix, PAN-OS 12.1): 5540 90 / 5550 120 / 5560 180 / 5570 240 / <strong>5580 300 Gbps</strong>. FW 375 Gbps. Up to 99M sessions, 3M CPS. <span class="tag tag-reported">400G QSFP-DD ports</span></td>
+            <td>Carries 2&times;100G DIA at line rate with <em>all</em> threat services on and room to grow. 3RU fixed form factor fits the per-customer, built-to-spec model. IPsec site-to-site and GlobalProtect replace FortiClient SSL-VPN.</td>
+          </tr>
+          <tr>
+            <td>Lambda shared cloud edge<br /><span class="note">1CC + on-demand, multi-tenant DIA aggregation, Hyperscale / GB300 sites</span></td>
+            <td><strong>PA-7500</strong> chassis</td>
+            <td>1,440 Gbps threat prevention, 1,500 Gbps FW for the full system. 250 Gbps TP per DPC-A card. 8&times; QSFP-DD 400/100/40G per NPC.</td>
+            <td>Terabit-class inspection at one logical point, scaled by adding cards. It matches 400G-and-up DIA at gigawatt-scale sites. Use vsys/zones for tenant-aware policy on the shared edge.</td>
+          </tr>
+          <tr>
+            <td>Management firewall<br /><span class="note">mgmt &harr; in-band, BMC / DPU / switch mgmt</span></td>
+            <td><strong>PA-3440</strong> (PA-1400 for small builds)</td>
+            <td>30.2 Gbps FW (appmix). TP figures in sources range from 11 to 18.8 Gbps.</td>
+            <td>Low bandwidth, high consequence. BMC and DPU access is how a tenant compromise turns into a platform compromise. App-ID on IPMI/Redfish/SSH plus User-ID for Lambda operators.</td>
+          </tr>
+          <tr>
+            <td>Out-of-band firewall<br /><span class="note">cellular backup, "no general routing"</span></td>
+            <td><strong>PA-415-5G</strong></td>
+            <td>1.5 Gbps FW, 0.8 Gbps TP, integrated 5G</td>
+            <td>Lambda's design already calls for cellular OOB. This model is one box instead of a firewall plus a separate modem.</td>
+          </tr>
+          <tr>
+            <td>GPU host / tenant edge (optional)</td>
+            <td><strong>Prisma AIRS on BlueField-3</strong></td>
+            <td>Designed for roughly <strong>1&ndash;5 Gbps</strong> per DPU (inference and OT traffic). Requires B3220, DOCA 3.x, and DPF/K8s.</td>
+            <td>Lambda already runs BlueField in zero-trust mode and owns the DPU (<a href="https://lambda.ai/blog/lambda-bare-metal-instances" target="_blank" rel="noopener">blog</a>), so this is a <strong>platform service Lambda operates</strong>, not a tenant add-on. Per-node zero-trust for <strong>inference endpoints and 1CC head nodes</strong> (SSH/Jupyter exposed by default), with no host CPU tax. <strong>Not</strong> a training-path product, so don't pitch it as one. Roadmap: Lambda's own <a href="https://lambda.ai/vr-200" target="_blank" rel="noopener">Vera Rubin page</a> says BlueField-4 "enforces zero-trust security isolation" (H2 2026). PANW has said AIRS is heading to BlueField-4 (800 Gb/s).</td>
+          </tr>
+          <tr>
+            <td>SOC / visibility</td>
+            <td><strong>Cortex XSIAM</strong> + NVIDIA DOCA Argus</td>
+            <td>&mdash;</td>
+            <td>The joint PANW + NVIDIA Enterprise AI Factory story (Jan 2026). DPU-level workload telemetry feeds XSIAM.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-bottom:40px;">Sources: <a class="src" href="https://cdn.blueally.com/paloguard/datasheets/pa-5500-series.pdf" target="_blank" rel="noopener">PA-5500 datasheet (mirror)</a> &middot; <a class="src" href="https://www.corporatearmor.com/wp-content/uploads/2025/05/pa-7500-ds.pdf" target="_blank" rel="noopener">PA-7500 datasheet (mirror)</a> &middot; <a class="src" href="https://docs.paloaltonetworks.com/prisma-airs/ai-runtime-security/airs-vm-firewall/nvidia-bluefield3-to-secure-ai-factories" target="_blank" rel="noopener">Prisma AIRS on BlueField-3</a> &middot; <a class="src" href="https://www.paloaltonetworks.com/blog/2026/01/support-nvidia-enterprise-ai-factory/" target="_blank" rel="noopener">PANW + NVIDIA AI Factory</a> &middot; <a class="src" href="https://www.paloaltonetworks.com/resources/datasheets/pa-3400-series" target="_blank" rel="noopener">PA-3400 datasheet</a>. Datasheet figures come from reseller-hosted PDFs. Confirm against the official PANW datasheets before quoting to the customer. PA-3440, PA-415-5G, and 400G port figures are reseller-sourced only.</p>
+
+    <p class="section-label">Why not the alternatives</p>
+    <div class="two-col" style="margin-bottom:40px;">
+      <div class="card">
+        <h2>Hyperscale Security Fabric (HSF)</h2>
+        <div class="prose">
+          <p>A software firewall cluster (VM-Series/AIRS with a built-in load balancer) that reaches roughly <strong>100&ndash;200 Gbps</strong> on ESXi under Panorama (PAN-OS 12.1.2+). It suits elastic, software-defined edges, but for a performance-first buyer with 100G/400G DIA, hardware gives more Gbps per rack unit. Keep it as the answer if Lambda wants security-as-a-service per tenant.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Anything in the GPU fabric</h2>
+        <div class="prose">
+          <p>Inline inspection of InfiniBand/RoCE RDMA would add latency to collective operations and break the "unrestricted" design Lambda documents. Say this first, unprompted. It shows we understand AI infrastructure and keeps the conversation on north-south, where we win.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Talk track</p>
+    <div class="stack">
+      <div class="card">
+        <h2>Performance-first narrative</h2>
+        <div class="prose">
+          <ol>
+            <li><strong>"We never touch your GPU fabric."</strong> Every enforcement point is north-south. Training throughput is unaffected by design.</li>
+            <li><strong>"Line rate with everything turned on."</strong> PA-5580 gives 300 Gbps of threat prevention against 2&times;100G DIA. The datasheet number is the security-on number, not a firewall-only number.</li>
+            <li><strong>"One OS, edge to OOB."</strong> The same PAN-OS and Strata Cloud Manager across the PA-7500 shared edge, PA-5500 per-customer perimeters, PA-3400 management, and PA-415-5G OOB. One policy model for a lean infrastructure team across 15 named regions.</li>
+            <li><strong>"Your VPN migration is happening anyway."</strong> FortiOS 7.6.3 removed SSL-VPN tunnel mode. Moving to GlobalProtect (IPsec, SSO/MFA, posture checks) is the same project effort with a better outcome than a password-only client.</li>
+            <li><strong>"Sell security, don't just buy it."</strong> Lambda's cloud firewall is L4 port/CIDR only. PANW on the shared edge, and AIRS on DPUs, could become a premium tenant security tier for enterprise AI buyers who need it for procurement.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h2>Objection handling</h2>
+          <div class="prose">
+            <ul>
+              <li><strong>"Firewalls slow down training."</strong> Agreed, which is why none go in the training path. IB/RoCE stays untouched, and we size only the DIA edge, at line rate with threat prevention on.</li>
+              <li><strong>"FortiGate is cheaper per Gbps."</strong> Compare security-on throughput, not firewall-only. Count the cost of an SSL-VPN CVE on a GPU cloud: CVE-2024-21762 (CVSS 9.6) was listed in CISA KEV in February 2024, and CVE-2022-42475 and CVE-2023-27997 were both exploited as zero-days.</li>
+              <li><strong>"Our customers manage their own policy."</strong> Keep that model: each Private Cloud gets its own PA-5500 pair and the customer administers policy, matching the "customer-controlled policy" language in Lambda's posture doc. Lambda keeps platform guardrails through central management. (Confirm the multi-tenant admin design with a PANW specialist.)</li>
+              <li><strong>"We're a lean team."</strong> One OS and one management plane across four tiers, with zero-touch provisioning for built-to-spec clusters.</li>
+              <li><strong>"Government and air-gapped deals need something different."</strong> Lambda sells air-gapped Superclusters to DoD customers (Space Force, Army, Air Force, CENTCOM). PA-Series hardware runs fully on-prem, managed by Panorama with offline content updates. Bring in the PANW federal team on certifications.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Discovery questions</h2>
+          <div class="prose">
+            <ol>
+              <li>What DIA speeds do Private Cloud and Hyperscale clusters get today: 2&times;100G, or 400G at newer sites?</li>
+              <li>Which FortiGate models and FortiOS versions are deployed, and what is the plan for the 7.6.3 SSL-VPN removal?</li>
+              <li>Who owns the firewall build for each new Private Cloud: Lambda network engineering, or the customer?</li>
+              <li>Do air-gapped government Superclusters use the same FortiGate design? Who sets the firewall requirements for them (Lambda or the agency)?</li>
+              <li>Lambda runs BlueField in zero-trust mode with its own provisioning services on the DPU. Which SKU (B3220?) and DOCA version? Is there room for a third-party security service, given that AIRS must be the only third-party networking service on the DPU? What is the BlueField-4 STX plan?</li>
+              <li>What sits at the shared 1CC/on-demand DIA edge today, and how is it scaled?</li>
+              <li>Do enterprise buyers ask for security attestations (SOC 2, tenant isolation evidence, NGFW) during procurement?</li>
+              <li>Would Lambda offer a managed security tier to tenants (revenue share or marketplace)?</li>
+              <li>How are BMC/DPU management networks monitored today, and where do the logs go?</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>

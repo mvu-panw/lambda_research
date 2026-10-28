@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — Resources</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="positioning.html">Firewall Positioning</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Resources</h1>
+      <p>Curated from a full crawl of docs.lambda.ai, lambda.ai, and Lambda's GitHub orgs.</p>
+    </div>
+
+    <div class="banner">
+      <strong>Full corpus on disk:</strong> <code>~/lambda/corpus/</code> holds every docs, blog, and site page as plain-text Markdown, indexed in <code>sources.csv</code>. Ask Claude questions against it, e.g. "grep the corpus for every mention of BlueField."
+    </div>
+
+    <!--
+      Add a card:
+      <a class="link-card" href="https://..." target="_blank" rel="noopener">
+        <span class="lc-title">Title</span>
+        <span class="lc-desc">Why it matters for the account.</span>
+        <span class="lc-meta">source &middot; date</span>
+      </a>
+    -->
+
+    <p class="section-label">Lambda docs: security &amp; network</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://docs.lambda.ai/private-cloud/security-posture/" target="_blank" rel="noopener">
+        <span class="lc-title">Private Cloud security posture</span>
+        <span class="lc-desc">Covers the three firewall tiers (perimeter, management, OOB), the IB/RoCE fabrics, AES-256-XTS at rest, and unencrypted intra-cluster traffic.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/public-cloud/1-click-clusters/security-posture/" target="_blank" rel="noopener">
+        <span class="lc-title">1-Click Clusters security posture</span>
+        <span class="lc-desc">Multi-tenant head nodes are SSH-exposed by default, GPU nodes are single-tenant, and IB links are dedicated per customer.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">
+        <span class="lc-title">Accessing Private Cloud (FortiGate)</span>
+        <span class="lc-desc">The incumbent proof point. Customer access is FortiClient SSL-VPN with username and password from a 1Password vault, and SSO is turned off.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/public-cloud/1-click-clusters/" target="_blank" rel="noopener">
+        <span class="lc-title">1-Click Clusters overview</span>
+        <span class="lc-desc">16&ndash;512 H100/B200 GPUs, Quantum-2 400G rail-optimized IB, 2&times;100G Ethernet per node, and shared DIA.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/public-cloud/firewalls/" target="_blank" rel="noopener">
+        <span class="lc-title">Lambda Cloud firewalls</span>
+        <span class="lc-desc">L3/L4 allow-lists by port and CIDR, 100 global rules per workspace, ICMP and SSH open by default, with an API. No L7 inspection.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/private-cloud/" target="_blank" rel="noopener">
+        <span class="lc-title">Private Cloud &amp; Hyperscale tiers</span>
+        <span class="lc-desc">1,000+ B200 for 1&ndash;3 years; Hyperscale at 2,000&ndash;64,000 H100/H200/GB200 for 3&ndash;10 years.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/public-cloud/access-security/" target="_blank" rel="noopener">
+        <span class="lc-title">Access &amp; security overview</span>
+        <span class="lc-desc">RBAC/IAM, workspaces as isolation boundaries, full-access API keys, and SSH keys.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://docs.lambda.ai/public-cloud/enabling-sso/" target="_blank" rel="noopener">
+        <span class="lc-title">Enabling SSO</span>
+        <span class="lc-desc">Identity integration for the Lambda Cloud console. Useful context for the GlobalProtect SSO/MFA pitch.</span>
+        <span class="lc-meta">docs.lambda.ai</span>
+      </a>
+    </div>
+
+    <p class="section-label">Lambda blog: account-relevant</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://lambda.ai/blog/nvidias-vera-rubin-nvl72-coming-to-lambdas-superintelligence-cloud" target="_blank" rel="noopener">
+        <span class="lc-title">Vera Rubin NVL72 coming to Lambda</span>
+        <span class="lc-desc">The next Supercluster building block, with BlueField-4 and Spectrum-6. This is the DPU security roadmap hook.</span>
+        <span class="lc-meta">blog &middot; Jan 2026</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/prompt-injection-doesnt-care-what-your-agent-does-for-a-living" target="_blank" rel="noopener">
+        <span class="lc-title">Prompt injection doesn't care what your agent does</span>
+        <span class="lc-desc">Lambda's AgentBeats Security Arena with UC Berkeley RDI clustered 1,433 winning attacks. Use it to open the Prisma AIRS conversation.</span>
+        <span class="lc-meta">blog &middot; Jul 2026</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/lambda-assembles-leadership-team-to-power-gigawatt-scale-ai-infrastructure" target="_blank" rel="noopener">
+        <span class="lc-title">New leadership team</span>
+        <span class="lc-desc">Michel Combes is CEO, Stephen Balaban CTO, Michael Balaban CPO, and John Donovan (ex-AT&amp;T) Chairman. Map the org.</span>
+        <span class="lc-meta">blog &middot; May 2026</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/lambda-closes-1-billion-senior-secured-fixed-rate-financing" target="_blank" rel="noopener">
+        <span class="lc-title">$1B investment-grade financing</span>
+        <span class="lc-desc">Funds three committed deployments for two hyperscale offtakers. Hyperscaler customers bring their own security requirements.</span>
+        <span class="lc-meta">blog &middot; Oct 2026</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/lambda-raises-over-1.5b-from-twg-global-usit-to-build-superintelligence-cloud-infrastructure" target="_blank" rel="noopener">
+        <span class="lc-title">$1.5B Series E (TWG Global, USIT)</span>
+        <span class="lc-desc">Capital for gigawatt-scale AI factories, so the edge firewall count grows with every site.</span>
+        <span class="lc-meta">blog &middot; Nov 2025</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/prime-data-centers-and-lambda-partner-to-power-the-next-era-of-superintelligence-with-ai-optimized-infrastructure-in-southern-california" target="_blank" rel="noopener">
+        <span class="lc-title">Prime Data Centers LAX01 (Vernon, CA)</span>
+        <span class="lc-desc">A new Blackwell site. Example of the colo footprint where perimeter firewalls get built.</span>
+        <span class="lc-meta">blog &middot; Nov 2025</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/building-the-aggregated-edge-for-sovereign-ai" target="_blank" rel="noopener">
+        <span class="lc-title">Building the aggregated edge for sovereign AI</span>
+        <span class="lc-desc">Podcast with Ken Patchett (VP DC Infra) on multi-density sites, sovereign LLMs, and compliance. Good for understanding how he thinks.</span>
+        <span class="lc-meta">blog &middot; Aug 2025</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/introducing-lambda-1-click-clusters-a-new-way-to-train-large-ai-models" target="_blank" rel="noopener">
+        <span class="lc-title">Introducing 1-Click Clusters</span>
+        <span class="lc-desc">The only published DIA figure: two shared, redundant 100 Gb/s links, and in-band Ethernet up to 200 Gb/s.</span>
+        <span class="lc-meta">blog &middot; 2024</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/considerations-for-large-scale-nvidia-h100-cluster-deployments" target="_blank" rel="noopener">
+        <span class="lc-title">Considerations for large-scale H100 clusters</span>
+        <span class="lc-desc">Lambda's own buyer questions for cluster providers. Mirror their language in discovery.</span>
+        <span class="lc-meta">blog &middot; 2023</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/blog/lambda-achieves-nvidia-exemplar-cloud" target="_blank" rel="noopener">
+        <span class="lc-title">NVIDIA Exemplar Cloud</span>
+        <span class="lc-desc">NVIDIA validation status. Anchors the joint PANW + NVIDIA AI Factory story.</span>
+        <span class="lc-meta">blog</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/vr-200" target="_blank" rel="noopener">
+        <span class="lc-title">Vera Rubin NVL72 product page</span>
+        <span class="lc-desc">BlueField-4 "enforces zero-trust security isolation." H2 2026.</span>
+        <span class="lc-meta">lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/trust" target="_blank" rel="noopener">
+        <span class="lc-title">Trust &amp; security</span>
+        <span class="lc-desc">SOC 2 Type II and ISO 27001/27017/27701/22301. "Dedicated clusters: no shared compute, network, or storage." Portal at trust.lambda.ai.</span>
+        <span class="lc-meta">lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/government" target="_blank" rel="noopener">
+        <span class="lc-title">Government</span>
+        <span class="lc-desc">Space Force, Army, Air Force, Naval Research, and CENTCOM. Air-gapped Superclusters and CRADAs. No FedRAMP claim.</span>
+        <span class="lc-meta">lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/superclusters" target="_blank" rel="noopener">
+        <span class="lc-title">Superclusters</span>
+        <span class="lc-desc">The successor to the Private Cloud page. Single-tenant, IB with SHARP, RoCE spine-superspine designs.</span>
+        <span class="lc-meta">lambda.ai</span>
+      </a>
+      <a class="link-card" href="https://lambda.ai/investors" target="_blank" rel="noopener">
+        <span class="lc-title">Investor overview</span>
+        <span class="lc-desc">SOC 2 Type II (Trust Portal), 5&ndash;75MW+ AI factories, and seven-time NVIDIA Partner of the Year.</span>
+        <span class="lc-meta">lambda.ai</span>
+      </a>
+    </div>
+
+    <p class="section-label">GitHub</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://github.com/LambdaLabsML/distributed-training-guide" target="_blank" rel="noopener">
+        <span class="lc-title">LambdaLabsML/distributed-training-guide</span>
+        <span class="lc-desc">Best practices for distributed PyTorch. Shows how much their customers care about collective performance on the fabric.</span>
+        <span class="lc-meta">&#9733; 633 &middot; Python</span>
+      </a>
+      <a class="link-card" href="https://github.com/lambdal/deeplearning-benchmark" target="_blank" rel="noopener">
+        <span class="lc-title">lambdal/deeplearning-benchmark</span>
+        <span class="lc-desc">Lambda's GPU benchmark suite. Performance is the culture.</span>
+        <span class="lc-meta">&#9733; 286</span>
+      </a>
+      <a class="link-card" href="https://github.com/lambdal/lambda-stack-dockerfiles" target="_blank" rel="noopener">
+        <span class="lc-title">lambdal/lambda-stack-dockerfiles</span>
+        <span class="lc-desc">The Lambda Stack base images every instance ships with.</span>
+        <span class="lc-meta">&#9733; 285</span>
+      </a>
+      <a class="link-card" href="https://github.com/LambdaLabsML/the_lab.api" target="_blank" rel="noopener">
+        <span class="lc-title">LambdaLabsML/the_lab.api</span>
+        <span class="lc-desc">An "Autonomous Research API" with recent activity (Oct 2026). Agentic workloads are an AIRS angle.</span>
+        <span class="lc-meta">&#9733; 26</span>
+      </a>
+      <a class="link-card" href="https://github.com/LambdaLabsML/vllm-builder" target="_blank" rel="noopener">
+        <span class="lc-title">LambdaLabsML/vllm-builder</span>
+        <span class="lc-desc">vLLM container builder that backs the inference API.</span>
+        <span class="lc-meta">&#9733; 7</span>
+      </a>
+      <a class="link-card" href="https://github.com/LambdaLabsML" target="_blank" rel="noopener">
+        <span class="lc-title">All LambdaLabsML repos (108)</span>
+        <span class="lc-desc">Mostly ML research and examples, with no infrastructure or security tooling public. The listing is in <code>corpus/github/</code>.</span>
+        <span class="lc-meta">github.com</span>
+      </a>
+    </div>
+
+    <p class="section-label">PANW references</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://docs.paloaltonetworks.com/prisma-airs/ai-runtime-security/airs-vm-firewall/nvidia-bluefield3-to-secure-ai-factories" target="_blank" rel="noopener">
+        <span class="lc-title">Prisma AIRS on NVIDIA BlueField-3</span>
+        <span class="lc-desc">Requirements (B3220, DOCA 3.x, DPF), north-south only, about 1&ndash;5 Gbps design target.</span>
+        <span class="lc-meta">docs.paloaltonetworks.com</span>
+      </a>
+      <a class="link-card" href="https://www.paloaltonetworks.com/blog/2026/01/support-nvidia-enterprise-ai-factory/" target="_blank" rel="noopener">
+        <span class="lc-title">PANW supports NVIDIA Enterprise AI Factory</span>
+        <span class="lc-desc">AIRS on BlueField plus DOCA Argus telemetry into Cortex XSIAM.</span>
+        <span class="lc-meta">PANW blog &middot; Jan 2026</span>
+      </a>
+      <a class="link-card" href="https://www.paloaltonetworks.com/blog/2025/10/secure-ai-factory-palo-alto-networks-nvidia/" target="_blank" rel="noopener">
+        <span class="lc-title">Secure AI Factory with NVIDIA</span>
+        <span class="lc-desc">Validated on RTX PRO Server, with a BlueField-4 roadmap.</span>
+        <span class="lc-meta">PANW blog &middot; Oct 2025</span>
+      </a>
+      <a class="link-card" href="https://www.paloaltonetworks.com/blog/network-security/pa-7500-redefines-network-defense-a-paradigm-shift-in-cybersecurity/" target="_blank" rel="noopener">
+        <span class="lc-title">PA-7500 launch blog</span>
+        <span class="lc-desc">Terabit-class modular NGFW, for the shared-edge recommendation.</span>
+        <span class="lc-meta">PANW blog</span>
+      </a>
+      <a class="link-card" href="https://docs.paloaltonetworks.com/ai-runtime-security/administration/hyperscale-security-fabric" target="_blank" rel="noopener">
+        <span class="lc-title">Hyperscale Security Fabric</span>
+        <span class="lc-desc">Software firewall clustering at roughly 100&ndash;200 Gbps. The alternative if Lambda wants elastic per-tenant security.</span>
+        <span class="lc-meta">docs.paloaltonetworks.com</span>
+      </a>
+      <a class="link-card" href="https://www.paloaltonetworks.com/resources/reference-architectures" target="_blank" rel="noopener">
+        <span class="lc-title">PANW reference architectures</span>
+        <span class="lc-desc">Data center and AI design guides.</span>
+        <span class="lc-meta">paloaltonetworks.com</span>
+      </a>
+    </div>
+
+    <p class="section-label">Competitive: Fortinet</p>
+    <div class="link-grid">
+      <a class="link-card" href="https://community.fortinet.com/t5/FortiGate/Technical-Tip-Changes-on-SSL-VPN-modes-starting-from-v7-6-3/ta-p/388462" target="_blank" rel="noopener">
+        <span class="lc-title">FortiOS 7.6.3 removes SSL-VPN tunnel mode</span>
+        <span class="lc-desc">Configs don't carry over on upgrade and must be migrated to IPsec first. Lambda's customer access depends on this mode.</span>
+        <span class="lc-meta">Fortinet community</span>
+      </a>
+      <a class="link-card" href="https://www.rapid7.com/blog/post/2024/02/12/etr-critical-fortinet-fortios-cve-2024-21762-exploited" target="_blank" rel="noopener">
+        <span class="lc-title">CVE-2024-21762 FortiOS SSL-VPN (exploited)</span>
+        <span class="lc-desc">CVSS 9.6, out-of-bounds write, in CISA KEV since February 2024. Also covers the earlier exploited 2022/2023 SSL-VPN flaws.</span>
+        <span class="lc-meta">Rapid7</span>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>

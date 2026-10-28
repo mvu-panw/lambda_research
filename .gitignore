@@ -1,0 +1,4 @@
+.DS_Store
+__pycache__/
+# 1.4 GB of PANW public docs, local reference only (would need Git LFS)
+Palo Alto Networks Resources/

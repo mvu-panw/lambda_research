@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — NVIDIA Gear</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="positioning.html">Firewall Positioning</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>NVIDIA Gear</h1>
+      <p>What Lambda runs, by offering, and the bandwidth numbers that size the firewalls.</p>
+    </div>
+
+    <div class="banner">
+      <span class="tag tag-confirmed">Confirmed</span> stated on a Lambda-owned page &nbsp;
+      <span class="tag tag-reported">Reported</span> third-party or secondhand source &nbsp;
+      <span class="tag tag-inferred">Inferred</span> our reading, verify in discovery
+    </div>
+
+    <p class="section-label">Compute and fabric by offering</p>
+    <div class="card table-wrap" style="padding:8px 8px;margin-bottom:40px;">
+      <table class="scoreboard-table">
+        <thead>
+          <tr><th>Offering</th><th>GPUs</th><th>GPU fabric (east-west)</th><th>Ethernet / internet (north-south)</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1-Click Clusters</td>
+            <td>16&ndash;512&times; H100 or B200 SXM</td>
+            <td>Quantum-2 400 Gb/s InfiniBand, non-blocking, rail-optimized. GPUDirect RDMA up to 3,200 Gb/s per node.</td>
+            <td>Every node (GPU and CPU) has 2&times;100 Gb/s Ethernet NICs. DIA runs over <strong>shared</strong> upstream capacity at the data center edge, not dedicated per tenant.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/1-click-clusters/" target="_blank" rel="noopener">docs</a></td>
+          </tr>
+          <tr>
+            <td>1-Click Clusters (2024 H100 launch)</td>
+            <td>H100</td>
+            <td>Quantum-2 InfiniBand</td>
+            <td>In-band Ethernet up to 200 Gb/s; two shared, redundant 100 Gb/s DIA links</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> but dated <a class="src" href="https://lambda.ai/blog/introducing-lambda-1-click-clusters-a-new-way-to-train-large-ai-models" target="_blank" rel="noopener">blog</a></td>
+          </tr>
+          <tr>
+            <td>Private Cloud</td>
+            <td>1,000+ HGX B200, 1&ndash;3 year reservations</td>
+            <td>InfiniBand spine-leaf, or RoCE depending on size. Now marketed as <a href="https://lambda.ai/superclusters" target="_blank" rel="noopener">Superclusters</a>: non-blocking IB with SHARP, plus RoCE with PFC/ECN in spine-superspine designs. An earlier product page listed 3.2 Tb/s per node (400 Gb/s per GPU) <span class="tag tag-reported">Reported</span>.</td>
+            <td>Redundant DIA into a dedicated HA perimeter firewall (FortiGate today). Speed not published.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/private-cloud/" target="_blank" rel="noopener">docs</a> <a class="src" href="https://lambda.ai/superclusters" target="_blank" rel="noopener">product</a></td>
+          </tr>
+          <tr>
+            <td>Hyperscale (Private Cloud)</td>
+            <td>2,000&ndash;64,000 GPUs: H100, H200 SXM, GB200 Grace Blackwell, 3&ndash;10 year reservations</td>
+            <td>Not published</td>
+            <td>Not published</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/private-cloud/" target="_blank" rel="noopener">docs</a></td>
+          </tr>
+          <tr>
+            <td>Blackwell Ultra (GB300 NVL72 / B300)</td>
+            <td>GB300 NVL72, B300</td>
+            <td>Quantum-X800 InfiniBand, 6.4 Tb/s between nodes</td>
+            <td>Not published</td>
+            <td><span class="tag tag-reported">Reported</span> <a class="src" href="https://www.plushcap.com/content/lambda/blog/lambda-gigawatt-scale-ai-factories-nvidia-gb300-nvl72-system-on-lambda-cloud" target="_blank" rel="noopener">blog mirror</a></td>
+          </tr>
+          <tr>
+            <td>Vera Rubin NVL72 (VR-200), H2 2026</td>
+            <td>72&times; Rubin GPU + 36&times; Vera CPU per rack, HBM4</td>
+            <td>NVLink 6 Switch in-rack; ConnectX-9 SuperNIC for scale-out RDMA</td>
+            <td><strong>BlueField-4 DPU</strong>, which "enforces zero-trust security isolation", plus Spectrum-6 Ethernet with co-packaged optics</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/vr-200" target="_blank" rel="noopener">product</a></td>
+          </tr>
+          <tr>
+            <td>On-Demand instances</td>
+            <td>1&times; to 8&times; B200 (180 GB SXM6), H100 (80 GB SXM5), GH200 (96 GB), A100, A10, A6000</td>
+            <td>Single node, so no fabric</td>
+            <td>Public IP, protected by the Lambda Cloud L4 firewall</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">docs</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="section-label">DPUs, servers, and network edge</p>
+    <div class="card table-wrap" style="padding:8px 8px;margin-bottom:40px;">
+      <table class="scoreboard-table">
+        <thead>
+          <tr><th>Component</th><th>Detail</th><th>Why it matters for PANW</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DPUs</td>
+            <td>Lambda <strong>operates BlueField in zero-trust mode</strong>: the DPU is inaccessible from the host OS, and network identity, emulated NVMe boot, and storage volumes run on the DPU. The TPM is exposed for attestation. Lambda is an early <strong>BlueField-4 STX</strong> partner. A cluster tour reports BF-3 on the HGX B200 north-south ports.</td>
+            <td>Lambda's platform team owns the DPU, not tenants, so Prisma AIRS on BlueField is a <strong>platform sale to Lambda</strong>. It requires the <strong>B3220</strong> SKU, DOCA 3.x, and being the only third-party networking service on the DPU. Check that against Lambda's own DPU services.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/blog/lambda-bare-metal-instances" target="_blank" rel="noopener">bare metal blog</a> <a class="src" href="https://lambda.ai/blog/lambda-at-gtc-2026-building-the-superintelligence-cloud" target="_blank" rel="noopener">GTC 2026</a> <span class="tag tag-reported">Reported</span> (BF-3) <a class="src" href="https://summaries.pages.dev/blog/servethehomevideo/lambda-ai-cluster-tour-with-supermicro-nvidia-hgx-b200-ft-servethehomevideo" target="_blank" rel="noopener">STH</a></td>
+          </tr>
+          <tr>
+            <td>Servers</td>
+            <td>Supermicro NVIDIA HGX B200</td>
+            <td>Context only</td>
+            <td><span class="tag tag-reported">Reported</span> <a class="src" href="https://summaries.pages.dev/blog/servethehomevideo/lambda-ai-cluster-tour-with-supermicro-nvidia-hgx-b200-ft-servethehomevideo" target="_blank" rel="noopener">STH</a></td>
+          </tr>
+          <tr>
+            <td>Perimeter firewall (Private Cloud)</td>
+            <td><strong>Fortinet FortiGate</strong>. Customers connect with FortiClient <strong>SSL-VPN</strong> using username and password from a 1Password vault, with SSO turned off.</td>
+            <td>The incumbent to displace. Fortinet removed SSL-VPN tunnel mode in FortiOS 7.6.3, so Lambda faces a forced VPN migration. <a href="positioning.html">See positioning &rarr;</a></td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">docs</a></td>
+          </tr>
+          <tr>
+            <td>Cloud firewall (public cloud)</td>
+            <td>Lambda-built L3/L4 rulesets: allow-lists by port and CIDR, up to 100 global rules per workspace. ICMP and SSH are open by default. Also available through an API.</td>
+            <td>No App-ID, threat prevention, or URL/DNS controls for tenants. That leaves room for a premium security tier or a marketplace VM-Series/AIRS offering.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/firewalls/" target="_blank" rel="noopener">docs</a></td>
+          </tr>
+          <tr>
+            <td>Regions</td>
+            <td>us-east-1/2/3, us-midwest-1/2, us-south-1/2/3, us-west-1/2/3, europe-central-1, asia-northeast-1/2, asia-south-1</td>
+            <td>Edge footprint, so the firewall count scales with sites</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> (named in docs)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="section-label">Sizing math</p>
+    <div class="two-col">
+      <div class="card">
+        <h2>East-west: do not firewall</h2>
+        <div class="prose">
+          <p>A 512-GPU 1CC is 64 nodes &times; 3.2 Tb/s, or about <strong>205 Tb/s</strong> of RDMA bisection on InfiniBand. No firewall belongs in that path, and IB is not IP-routed through one anyway.</p>
+          <p>Lambda's own doc says compute nodes have "unrestricted access to each other on this fabric." Agree with that. It builds credibility with a performance-first buyer.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h2>North-south: size here</h2>
+        <div class="prose">
+          <p>Each node has 2&times;100G Ethernet, but internet traffic is capped by the DIA at the edge. The one published edge figure is <strong>2&times;100G DIA</strong> (2024).</p>
+          <p><span class="tag tag-inferred">Inferred</span> A Private Cloud HA pair needs at least 200 Gbps <strong>threat prevention</strong> with headroom to stay line-rate on both links. The shared 1CC/on-demand edge aggregates across tenants and sites, which is where the Tbps class fits.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>

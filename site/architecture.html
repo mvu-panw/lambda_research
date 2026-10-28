@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — Architecture</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="positioning.html">Firewall Positioning</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Architecture</h1>
+      <p>Lambda's two published topologies, redrawn from their security-posture docs, with where PANW enforcement points land.</p>
+    </div>
+
+    <div class="banner">
+      <strong>Key point:</strong> Lambda's security-posture pages name no firewall vendor, model, or link speed. Every firewall sits <strong>north-south</strong> (internet edge, management, out-of-band). The InfiniBand/RoCE GPU fabric is never firewalled, and the posture should stay that way.
+    </div>
+
+    <p class="section-label">Lambda Private Cloud</p>
+    <div class="stack">
+      <div class="card" style="text-align:center;">
+        <a href="assets/diagrams/private-cloud.pdf" target="_blank" class="graphic-link diagram-wide">
+          <img src="assets/diagrams/private-cloud-1.png" alt="Lambda Private Cloud topology diagram" style="aspect-ratio:5625/2813;" />
+        </a>
+        <div class="cta-row" style="margin-top:0;">
+          <a href="assets/diagrams/private-cloud.pdf" target="_blank" class="btn btn-outline">Open full PDF</a>
+          <a href="https://docs.lambda.ai/private-cloud/security-posture/" target="_blank" rel="noopener" class="btn btn-primary">Lambda security posture doc</a>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h2>What Lambda documents</h2>
+          <div class="prose">
+            <ul>
+              <li><strong>Single-tenant, end to end:</strong> "All network connections and supporting infrastructure (including firewalls, routers, and switches) are dedicated to the customer's cluster."</li>
+              <li><strong>Edge:</strong> redundant dedicated internet access (DIA) links into an <strong>HA perimeter firewall</strong>. No internet-exposed ingress ports by default, and the customer controls policy.</li>
+              <li><strong>VPN:</strong> IPsec site-to-site tunnels and client VPN terminate on the perimeter firewall.</li>
+              <li><strong>Fabrics:</strong> in-band Ethernet plus an InfiniBand spine-leaf fabric for GPU RDMA. RoCE may replace IB depending on cluster size. "All compute nodes have unrestricted access to each other on this fabric."</li>
+              <li><strong>Management plane:</strong> BMCs, DPUs, and switch management sit on a separate management network that reaches in-band only through a dedicated <strong>management firewall</strong>.</li>
+              <li><strong>Out-of-band:</strong> its own <strong>OOB firewall</strong> on a low-bandwidth backup (cellular) link. "General routing is not permitted over the OOB backup link."</li>
+              <li><strong>Crypto:</strong> AES-256-XTS at rest with a key per cluster. Intra-cluster traffic is <strong>not encrypted</strong>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h2>PANW enforcement points</h2>
+          <div class="prose">
+            <ol>
+              <li><strong>Perimeter HA pair</strong> on the dual DIA links. This is where performance sizing matters. <a href="positioning.html">PA-5500 / PA-7500 &rarr;</a></li>
+              <li><strong>Management firewall</strong> between mgmt and in-band. Low throughput, high value: it protects BMC/DPU/switch management from a compromised tenant workload.</li>
+              <li><strong>OOB firewall</strong> with built-in 5G for the cellular backup path.</li>
+              <li><strong>Optional host edge:</strong> Prisma AIRS on BlueField-3 for low-rate inference/API ingress per node, not the training path.</li>
+            </ol>
+            <p class="note">Talk track: Lambda already has three firewall tiers by design. The question is whose firewalls they are, and whether the edge tier inspects at line rate with full threat prevention turned on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Lambda 1-Click Clusters</p>
+    <div class="stack">
+      <div class="card" style="text-align:center;">
+        <a href="assets/diagrams/1cc.pdf" target="_blank" class="graphic-link diagram-wide">
+          <img src="assets/diagrams/1cc-1.png" alt="Lambda 1-Click Clusters topology diagram" style="aspect-ratio:5625/2813;" />
+        </a>
+        <div class="cta-row" style="margin-top:0;">
+          <a href="assets/diagrams/1cc.pdf" target="_blank" class="btn btn-outline">Open full PDF</a>
+          <a href="https://docs.lambda.ai/public-cloud/1-click-clusters/security-posture/" target="_blank" rel="noopener" class="btn btn-primary">Lambda security posture doc</a>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h2>What Lambda documents</h2>
+          <div class="prose">
+            <ul>
+              <li><strong>Head (management) nodes:</strong> <em>multi-tenant</em> hardware, isolated by hardware virtualization, with NICs shared with other customers. <strong>Directly reachable over the internet via SSH by default.</strong> Customers write their own inbound rules.</li>
+              <li><strong>Compute (GPU) nodes:</strong> single-tenant, on a dedicated segment with no inbound connectivity from the firewall. Tenant isolation is logical segmentation.</li>
+              <li><strong>Ethernet:</strong> a logically isolated fabric shared by compute and head nodes.</li>
+              <li><strong>InfiniBand:</strong> customer traffic "only ever transits physical IB links dedicated to that customer."</li>
+              <li><strong>Storage:</strong> an isolated network that only head and compute nodes can reach. Encrypted at rest; algorithm not stated.</li>
+              <li><strong>Internet:</strong> via an internet gateway and NAT gateway behind HA perimeter firewalls on two DIA links, which are <strong>shared</strong> across tenants (2&times;100G at the 2024 H100 launch).</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <h2>PANW enforcement points</h2>
+          <div class="prose">
+            <ol>
+              <li><strong>Lambda's shared cloud edge:</strong> the perimeter that carries traffic for every 1CC tenant. Aggregate bandwidth grows with the fleet, so this is the PA-7500 conversation.</li>
+              <li><strong>Tenant ingress to head nodes:</strong> SSH and JupyterLab are internet-exposed by default on shared hardware. That is the most visible risk in either topology, and a natural place for per-tenant policy (Prisma AIRS on the DPU, or vsys/zones at the edge).</li>
+              <li><strong>Head-to-compute boundary:</strong> logical segmentation only. Inspection here is low-rate control traffic, not RDMA.</li>
+            </ol>
+            <p class="note">Talk track: 1CC is a multi-tenant service. Lambda's own platform security, including the shared edge, head-node exposure, and tenant isolation evidence for enterprise buyers, is a different sale from the per-customer firewalls in Private Cloud.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>

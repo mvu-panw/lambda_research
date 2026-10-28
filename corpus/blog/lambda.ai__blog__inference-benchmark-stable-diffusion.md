@@ -1,0 +1,156 @@
+# All You Need Is One GPU: Inference Benchmark for Stable Diffusion
+
+Source: https://lambda.ai/blog/inference-benchmark-stable-diffusion
+
+Skip to main content
+
+# All You Need Is One GPU: Inference Benchmark for Stable Diffusion
+
+ October 5, 2022
+
+ (Updated on August 3, 2023)
+
+ • 8 min read
+
+UPDATE 2022-Oct-13 (Turning off autocast for FP16 speeding inference up by 25%)
+
+What do I need for running the state-of-the-art text to image model? Can a gaming card do the job, or should I get a fancy A100? What if I only have a CPU?
+
+To shed light on these questions, we present an inference benchmark of Stable Diffusion on different GPUs and CPUs. These are our findings:
+
+- Many consumer grade GPUs can do a fine job, since stable diffusion only needs about 5 seconds and 5 GB of VRAM to run.
+
+- When it comes to speed to output a single image, the most powerful Ampere GPU (A100) is only faster than 3080 by 33% (or 1.85 seconds).
+
+- By pushing the batch size to the maximum, A100 can deliver 2.5x inference throughput compared to 3080.
+
+Our benchmark uses a text prompt as input and outputs an image of resolution 512x512. We use the model implementation from Huggingface's diffusers library, and analyze inference performance in terms of speed, memory consumption, throughput, and quality of the output images. We look at how different choices in hardware (GPU model, GPU vs CPU) and software (single vs half precision, pytorch vs onnxruntime) affect inference performance.
+
+For reference, we will be providing benchmark results for the following GPU devices: A100 80GB PCIe, RTX3090, RTXA5500, RTXA6000, RTX3080, RTX8000. Please refer to the "Reproducing the experiments" section for details on running these experiments in your own environment.
+
+Last but not least, we are excited to see how quickly things are moving forward by the community. For example, the "sliced attention" trick can further reduce the VRAM cost to "as little as 3.2 GB", at a small penalty of about 10% slower inference speed. We also look forward to testing ONNX runtime with CUDA devices once it becomes more stable in the near future.
+
+## Speed
+
+The figure below shows the inference speed when using different hardware and precision for generating a single image using the (arbitrary) text prompt: "a photo of an astronaut riding a horse on mars".
+
+Stable Diffusion Text2Image Speed (in seconds)
+
+We find that:
+
+- The time to generate a single output image ranges between 3.74 to 5.59 seconds across our tested Ampere GPUs, including the consumer 3080 card to the flagship A100 80GB card.
+
+- Half-precision reduces the time by about 40% for Ampere GPUs, and by 52% for the previous generation RTX8000 GPU.
+
+We believe Ampere GPUs enjoy a relatively "smaller" speedup from half-precision due to their use of TF32. For readers who are not familiar with TF32, it is a 19-bit format that has been used as the default single-precision data type on Ampere GPUs for major deep learning frameworks such as PyTorch and TensorFlow. One can expect half-precision's speedup over FP32 to be bigger since it is a true 32-bit format.
+
+We run these same inference jobs on CPU devices so to put in perspective the performance observed on GPU devices.
+
+Stable Diffusion Text2Image GPU vs CPU
+
+We note that:
+
+- GPUs are significantly faster -- by one or two orders of magnitudes depending on the precisions.
+
+- onnxruntime can reduce the CPU inference time by about 40% to 50%, depending on the type of CPUs.
+
+As a side note, ONNX runtime currently does not have a stable CUDA backend support for Hugging Face diffusers, nor did we observe meaningful speedup in our preliminary CUDAExecutionProvider tests. We look forward to conducting a more thorough benchmark once ONNX runtime become more optimized for stable diffusion.
+
+## Memory
+
+We also measure the memory consumption of running stable diffusion inference.
+
+Stable Diffusion Text2Image Memory (GB)
+
+Memory usage is observed to be consistent across all tested GPUs:
+
+- It takes about 7.7 GB GPU memory to run single-precision inference with batch size one.
+
+- It takes about 4.5 GB GPU memory to run half-precision inference with batch size one.
+
+## Throughput
+
+So far we have measured how quickly a single input can be processed, which is critical to online applications that don't tolerate even the slightest delay. However, some (offline) applications may focus on "throughput", which measures the total volume of data processed in a fixed amount of time.
+
+Our throughput benchmark pushes the batch size to the maximum for each GPU, and measures the number of images they can process per minute. The reason for maximizing the batch size is to keep tensor cores busy so that computation can dominate the workload, avoiding any non-computational bottleneck and maximizing the throughput.
+
+We run a series of throughput experiments in pytorch with half-precision and using the maximum batch size that can be used for each GPU:
+
+Stable Diffusion Text2Image Throughput (images/minute)
+
+We note:
+
+- Once again, A100 80GB is the top performer and has the highest throughput.
+
+- The gap between A100 80GB and other cards in terms of throughput can be explained by the larger maximum batch size that can be used on this card.
+
+As a concrete example, the chart below shows how A100 80GB's throughput increases by 64% when we changed the batch size from one to 28 (the largest without causing an out of memory error). It is also interesting to see that the increase is not linear and flattens out when batch size reaches a certain value, at which point the tensor cores on the GPU are saturated and any new data in the GPU memory will have to be queued up before getting their own computing resources.
+
+Stable Diffusion Text2Image Batch size vs Throughput (images/minute)
+
+## Autocast
+
+An update made by the Hugging Face team on their diffuser code claimed that removing autocast speeds up inference with pytorch at half-precision by ~25%.
+
+With autocast:
+
+with autocast("cuda"):
+ image = pipe(prompt).images[0] 
+
+Without autocast:
+
+image = pipe(prompt).images[0] 
+
+We reproduced the experiment on NVIDIA RTX A6000 and have been able to verify performance gains both on the speed and memory usage side. We expect similar improvements with other devices that support half-precision.
+
+In conclusion: DO NOT use autocast in conjunction with FP16.
+
+## Precision
+
+We are curious about whether half-precision introduces degradations to the quality of the output images. To test this out, we fixed the text prompt as well as the "latents" input and fed them to the single-precision model and the half-precision model. We ran the inference 100 times with increased number of steps. Both models' outputs, as well as their difference map, are saved for each run.
+
+Single-precision v.s. Half-precision over 100 steps
+
+Our observation is that there are indeed visible differences between the single-precision output and the half-precision output, especially in the early steps. The differences often decrease with the number of steps, but might not vanish.
+
+Interestingly, such a difference may not imply artifacts in half-precision's outputs. For example, in step 70, the picture below shows half-precision didn't produce the artifact in the single-precision output (an extra front leg):
+
+Single-precision v Half-precision at step 70
+
+## Reproducing the experiments
+
+You can use the Lambda Diffusers repository to reproduce the results presented in this article.
+
+### Setup
+
+Before running the benchmark, make sure you have completed the repository installation steps.
+
+You will then need to set the huggingface access token:
+
+- Create a user account on Hugging Face and generate an access token.
+
+- Set your huggingface access token as the ACCESS_TOKEN environment variable:
+
+export ACCESS_TOKEN=<hf_...> 
+
+### Usage
+
+Launch the benchmark.py script to append benchmark results to the existing benchmark.csv results file:
+
+python ./scripts/benchmark.py
+
+Lauch the benchmark_quality.py script to compare the output of single-precision and half-precision models:
+
+python ./scripts/benchmark_quality.py
+
+## Footnotes
+
+1. Since both text prompt as well as the "latents" input are fixed for each run, this is equivalent to running the inference for 100 steps, and save the intermediate results of each step.
+
+## AUTHORED BY
+
+ Eole Cervenka
+
+## SHARE ARTICLE
+
+## SUBSCRIBE TO THE BLOG
