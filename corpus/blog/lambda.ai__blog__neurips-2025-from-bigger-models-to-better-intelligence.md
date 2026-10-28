@@ -1,0 +1,87 @@
+# From bigger models to better intelligence: what NeurIPS 2025 tells us about progress
+
+Source: https://lambda.ai/blog/neurips-2025-from-bigger-models-to-better-intelligence
+
+Skip to main content
+
+# From bigger models to better intelligence: what NeurIPS 2025 tells us about progress
+
+ December 15, 2025
+
+ • 9 min read
+
+NeurIPS has always been a mirror: it doesn’t just reflect what the community is building, it reveals what the community is starting to believe. In 2025, that belief is shifting. The center of gravity is moving away from “just scale it” and toward something more constraint-aware and capability-driven:
+
+- Scale, but with efficiency
+
+- Evaluate in the wild, not in the lab
+
+- Model the world, not just the corpus
+
+## Scale: from “bigger models” to “better capability”
+
+AI is becoming a general utility. When that happens, efficiency isn’t a feature; it’s a necessity. As a result, the scaling curve has to bend. And increasingly, that bend is coming from model architecture rather than brute force.
+
+If you skim the NeurIPS 2025 Best Paper list, this shift is hard to miss: sparse attention, depth scaling in RL, and robust scaling via superposition all point in the same direction. At the same time, efficiency is no longer just a model concern. Rather, it can be interpreted as a system concern. MoE models, for example, can be complicated to deploy, operating with memory and compute in very specific ways that standard performance metrics fail to capture. Optimizing MoE system performance becomes a three-way negotiation between cost, accuracy, and throughput, and metrics like Memory Bandwidth Utilization (MBU) and Model FLOPs Utilization (MFU) need to account for sparsity to remain meaningful. Overall, research will continue, and as AI is commercialized, less is indeed more. But, responsible resource utilization is not just a moral imperative; it’s also good business.
+
+Beyond architecture, another way to push past the scaling “wall” is to explicitly explore trade-offs. As brute-force scaling with data and compute simultaneously gets increasingly challenging, one interesting new research direction is the compute–data trade. In low-data regimes, diffusion models can outperform autoregressive baselines: if you’re willing to spend more compute. Our paper, “Diffusion Beats Autoregressive in Data-Constrained Settings,” empirically studies this phenomenon and identifies a critical compute threshold beyond which diffusion begins to win. A similar idea appears in “Why Diffusion Models Don’t Memorize” (this year’s Best Paper), which frames diffusion as having a built-in safety buffer between concept learning and memorization, allowing the model to extract more signal from fewer data before overfitting begins.
+
+This framing also helps contextualize year-round excitement around test-time scaling, including chain-of-thought reasoning (e.g., OpenAI’s o1) and RL with verifiable rewards, as a way to keep performance improving when data is scarce. But NeurIPS 2025 makes it clear there is no silver bullet. More inference-time compute does not automatically translate into more intelligence, and RL brings its own practical issues: mode collapse, reward hacking, and brittleness — think lack of diversity, cheats for higher leaderboard scores, but falls apart in the real world.
+
+What’s interesting is how openly polarized the field is now. On one hand, some studies show that “thinking more” can hurt: poorly structured reasoning behaves like a bad intermediate program, leading to what amounts to expensive stupidity. On the other hand, “1000-Layer Networks for Self-Supervised RL” (another Best Paper) argues the opposite: scaling the right dimension can unlock qualitatively new capabilities.
+
+I read it as a sign that we are moving toward a deeper understanding of the receipt of using these models. And the difference often comes down to how effortful the recipe is. Low-effort approaches, such as plug-and-play RL, default hyperparameters, brittle entropy or Kullback–Leibler (KL) settings tend to fail. High-effort approaches, such as careful tuning, explicit entropy control, long training runs, and stable protocols, can push models into new regimes. Simply put: scale and RL aren’t the devils; the devil is in the details.
+
+## Benchmarks: the most overfit, least understood part of the field
+
+I’ve always had a love–hate relationship with benchmarks. They’re overfit, yet hard to replace. Evaluating a model or agent is a lot like hiring a person: sometimes you need a startup co-founder (generalist, adaptable, high-agency), sometimes you need a specialist who owns a single function. In both cases, you can run a heroic interview process and still only learn the truth after you’ve “hired” them.
+
+For a long time, evaluation relied on static benchmarks, which fueled the familiar criticism that models simply “study for the exam.” This year, that narrative began to shift. 2025 features a wave of carefully designed dynamic benchmarks that target long-horizon, abstract, and even underspecified tasks.
+
+Take CodeAssistBench as an example. Rather than testing isolated coding skills, it evaluates repository understanding, planning, question-asking, patching, testing, tool use, and recovery from mistakes. This feels like what you’d want when hiring a specialist. On the other end of the spectrum, ARC-AGI 2 (not a NeurIPS track, but they had an awesome party there) probes general intelligence by forcing models to solve increasingly challenging puzzles with very few examples and strict compute limits. Those constraints stress-test test-time learning, self-reflection, synthetic data generation, masked diffusion, and recursive reasoning. Some of these capabilities rarely show up in leaderboard-style benchmarks.
+
+Underspecification is another recurring theme. In real life, asking the right question is often as important as producing the answer. QuestBench formalizes this by framing reasoning problems as sets of variables and rules where one key variable’s value is missing, and measure whether a model can pick which missing value needs to be filled in to complete the solution. Even strong models struggle here, with reported accuracies around 40–50% in some domains.
+
+Perhaps the most consequential benchmark contribution this year, however, isn’t about accuracy at all. It’s about diversity and pluralism. The Datasets & Benchmarks Best Paper, “Artificial Hivemind,” revealed both intra-model repetition (a model repeating itself) and inter-model homogeneity (different models converging to similar outputs). It also surfaced an understandable but uncomfortable finding: LLMs as judges can be poorly calibrated on prompts where humans legitimately disagree.
+
+This is reward hacking in spirit. When we optimize a narrow metric or a narrow judge, we risk collapsing a rich space of acceptable behaviors into a bland basin. The RLVR runner-up paper reinforces this point, showing how RL can narrow distributions by amplifying rewarded trajectories while shrinking the broader solution space.
+
+Finally, there’s the structural issue many complain about: siloed benchmarks. Every paper seems to introduce a new benchmark, and we often measure what’s easy rather than what matters. The encouraging sign is that this year’s Datasets & Benchmarks track pushes on introduced stricter requirements for persistent dataset hosting and mandatory metadata. These are concrete steps toward real reproducibility.
+
+## World models: priors, agents, and multimodal alignment that actually aligns
+
+“What got us here won’t get us there” has become a common refrain for LLMs. Models trained primarily to mimic language are inefficient and fundamentally limited, especially when it comes to continual learning through interaction with the world. After all, how smart/efficient is an agent that only learns from supervision, rather than from its own successes and mistakes out in the wild?
+
+World models benefit from structured priors. Such priors can come from physics, programs, or both. Physics priors can help models understand and synthesize the physical world. Program priors do the same in, well, the program world. PoE-World (Product of programmatic Experts) exemplifies this idea by targeting a specific failure mode of today’s program world models: neural models are flexible but data-hungry and prone to hallucination; programming models are data-efficient but brittle, often collapsing into a single monolithic simulator. PoE-World splits the difference: instead of one big program, the model writes many small causal “experts” and combines them probabilistically.
+
+In addition to priors, another important aspect of world models is agents. But agents need continual learning. The “World Is Bigger” view argues that embedded agents are capacity-limited by default, making frozen policies suboptimal. Rich Sutton’s OaK architecture operationalizes this idea by treating learning as perpetual: agents continually construct features, pose subtasks, learn options and models, plan with them, and prune abstractions that no longer help. In this framing, knowledge cannot remain static or just increase fact sets; learning requires evolution.
+
+This is also related to multimodal systems where agents interact with the world. Long-horizon tasks demand vision, language, and action to stay coherent over time. A recurring observation in multimodal research is that systems can be superficially aligned: simple MLP connectors between vision and language lack inductive bias, making them data-hungry and prone to cross-modal drift. Works like SimWorld and Genie (another non-NeurIPS work that I must mention) point to a different path: interaction-driven grounding. By learning vision and language as parts of a shared-world model that must remain consistent under action, these systems acquire a stronger inductive bias for long-horizon tasks with far less supervision.
+
+## How this relates to the path toward superintelligence
+
+I increasingly think “superintelligence” won’t be a single-model breakthrough but rather a system of capabilities that reinforce one another.
+
+First, we need efficient core models that learn, generalize, adapt, and create. Techniques such as sparsity and gating are not implementation details; they are prerequisites for bending the scaling curve.
+
+Second, we need world models that go beyond being just “multimodal.” They must be interactive: grounded in physics and logic, able to offload cognition to programs and tools (like humans do), and capable of memory and planning over long horizons. This is where agents stop being chatbots and start being situated systems that are embedded in and interact with the real world, learning and adapting in the wild, not just in the labs.
+
+Finally, we need continual learning and adaptation. Sutton’s “era of experience” is a helpful north star. Even if you disagree with his claim that LLMs are a dead end, the systems lesson is unavoidable: any static reward can be hacked. That’s why the emphasis on abstraction, underspecification, and diversity in this year’s benchmarks is fundamental.
+
+## What I’m hoping to see next year
+
+I’d love to see new architectures and objectives that keep bending the scaling curve. Models that think before they speak. Latent-thought models and tiny recursive networks are promising directions. Reinforcement as a pretraining objective is another: rewarding intermediate thinking steps that improve prediction, while interleaving RL with standard likelihood training, could let us train without explicit verifiers.
+
+I also hope to see more models move beyond “studying for the exam.” Systems that learn common sense, reduce reward hacking and mode collapse, and adapt quickly from a few examples. For example, ARC-AGI 3 will center on understanding games in unseen environments, requiring systems to interpret mechanics and goals with minimal prior exposure. This shift pushes the field toward memory, faster environment modeling, and more deliberate handling of exploration-exploitation trade-offs.
+
+The most exciting thing in 2025 is that the field is learning to acknowledge our constraints. And, as Ilya Sutskever put it, moving from the age of scaling to the age of research. In that regard, NeurIPS remains a mirror: a place where future and reality meet and reshape each other.
+
+I can’t wait to see what the community builds next. See you in 2026.
+
+## AUTHORED BY
+
+ Chuan Li
+
+## SHARE ARTICLE
+
+## SUBSCRIBE TO THE BLOG

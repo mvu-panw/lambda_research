@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — Home</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="architecture.html">Architecture</a>
+      <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="positioning.html">Firewall Positioning</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Lambda AI</h1>
+      <p>"The Superintelligence Cloud". Account research and PANW positioning for technical enablement.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:32px;">
+      <p style="font-weight:600;font-size:1.15rem;margin-bottom:14px;color:var(--cyan);">The 30-second version</p>
+      <div class="prose">
+        <ul>
+          <li><strong>Who:</strong> an AI-only GPU cloud founded in 2012. It is an NVIDIA Exemplar Cloud partner and seven-time NVIDIA Partner of the Year, with SOC 2 Type II. It runs AI factories from 5&ndash;75MW sites up to 75MW+ campuses. <a class="src" href="https://lambda.ai/investors" target="_blank" rel="noopener">investors</a></li>
+          <li><strong>Incumbent:</strong> <strong>Fortinet FortiGate</strong> provides the Private Cloud perimeter and VPN, with customers on FortiClient SSL-VPN. Fortinet removed that mode in FortiOS 7.6.3. <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">docs</a></li>
+          <li><strong>Recommendation:</strong> PA-5580 HA per Private Cloud, PA-7500 on the shared cloud edge, PA-3440 for management, PA-415-5G for OOB, and Prisma AIRS on BlueField for inference and head nodes. Nothing goes in the GPU fabric. <a href="positioning.html" class="src">details &rarr;</a></li>
+          <li><strong>Why now:</strong> the forced VPN migration; a new CEO with a telco and infrastructure background; Vera Rubin buildouts (BlueField-4 "zero-trust security isolation", H2 2026); and hyperscale and pre-IPO customers pushing security scrutiny upstream.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:40px;">
+      <div class="card">
+        <h2>Offerings</h2>
+        <div class="prose">
+          <ul>
+            <li><strong>On-Demand:</strong> 1&ndash;8 GPU instances (B200, H100, GH200, and more) behind an L4 cloud firewall.</li>
+            <li><strong>1-Click Clusters:</strong> 16&ndash;512 H100/B200 GPUs on 400G InfiniBand. Multi-tenant head nodes, shared DIA.</li>
+            <li><strong>Private Cloud:</strong> 1,000+ HGX B200, single-tenant, 1&ndash;3 years. Dedicated firewalls.</li>
+            <li><strong>Hyperscale:</strong> 2,000&ndash;64,000 GPUs (H100/H200/GB200), 3&ndash;10 years.</li>
+            <li><strong>Superclusters:</strong> 4,000&ndash;165,000+ GPUs, co-engineered, on 3&ndash;5 year terms. <a class="src" href="https://lambda.ai/superclusters" target="_blank" rel="noopener">product</a></li>
+            <li><strong>Government:</strong> US Naval Research, Space Force, Army, Air Force, and CENTCOM. Includes <strong>air-gapped Supercluster deployments</strong> and CRADAs. No FedRAMP is claimed. <a class="src" href="https://lambda.ai/government" target="_blank" rel="noopener">gov</a></li>
+            <li><strong>Also:</strong> Managed Kubernetes, Managed Slurm, an inference API, and on-prem DGX/workstations.</li>
+            <li><strong>Trust:</strong> SOC 2 Type II and ISO 27001/27017/27701/22301. <a class="src" href="https://lambda.ai/trust" target="_blank" rel="noopener">trust</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Business signals</h2>
+        <div class="prose">
+          <ul>
+            <li><strong>Leadership (May 2026):</strong> Michel Combes is CEO. Co-founder Stephen Balaban is CTO and Michael Balaban is CPO. John Donovan (ex-AT&amp;T) is Chairman, and Ken Patchett is VP of Data Center Infrastructure. <a class="src" href="https://lambda.ai/blog/lambda-assembles-leadership-team-to-power-gigawatt-scale-ai-infrastructure" target="_blank" rel="noopener">blog</a></li>
+            <li><strong>Capital:</strong> a $1.5B Series E led by TWG Global (November 2025) <a class="src" href="https://lambda.ai/blog/lambda-raises-over-1.5b-from-twg-global-usit-to-build-superintelligence-cloud-infrastructure" target="_blank" rel="noopener">blog</a>, a $926M Term Loan B, and a $1B investment-grade term loan (October 1, 2026) backed by <strong>two hyperscale customers</strong>. <a class="src" href="https://lambda.ai/blog/lambda-closes-1-billion-senior-secured-fixed-rate-financing" target="_blank" rel="noopener">blog</a></li>
+            <li>A further ~$3B raise at $12B+ was reported, and the IPO reportedly slipped to 2027. <span class="tag tag-reported">Reported</span> <a class="src" href="https://www.datacenterdynamics.com/en/news/ai-cloud-lambda-seeks-3bn-funding-round-ahead-of-ipo-plans-report/" target="_blank" rel="noopener">DCD</a> <a class="src" href="https://forgeglobal.com/insights/lambda-upcoming-ipo-news/" target="_blank" rel="noopener">Forge</a></li>
+            <li>Microsoft is a GPU capacity customer, and NVIDIA is an investor with a reported $1.5B lease-back. <span class="tag tag-reported">Reported</span> <a class="src" href="https://finance.yahoo.com/news/microsoft-nvidia-anchor-lambdas-ai-181306538.html" target="_blank" rel="noopener">Yahoo</a></li>
+            <li><strong>AI security interest:</strong> Lambda ran the AgentBeats prompt-injection arena with UC Berkeley RDI (ICLR 2026), clustering 1,433 winning attacks. That opens a Prisma AIRS conversation. <a class="src" href="https://lambda.ai/blog/prompt-injection-doesnt-care-what-your-agent-does-for-a-living" target="_blank" rel="noopener">blog</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Explore</p>
+    <div class="menu-grid">
+      <a href="architecture.html" class="menu-card">
+        <div class="card-icon" style="background:none;width:72px;height:72px;">
+          <img src="assets/images/Strata-Hybrid-dark.png" alt="Strata" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <span class="card-label">Architecture</span>
+        <span class="card-sub">Private Cloud &amp; 1CC topologies</span>
+      </a>
+
+      <a href="nvidia-gear.html" class="menu-card">
+        <div class="card-icon" style="background:none;width:72px;height:72px;">
+          <img src="assets/images/Prisma-AIRS-Hybrid-dark.svg" alt="Prisma AIRS" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <span class="card-label">NVIDIA Gear</span>
+        <span class="card-sub">GPUs, fabrics, DPUs, link speeds</span>
+      </a>
+
+      <a href="positioning.html" class="menu-card">
+        <div class="card-icon" style="background:none;width:72px;height:72px;">
+          <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <span class="card-label">Firewall Positioning</span>
+        <span class="card-sub">Models, talk track, discovery</span>
+      </a>
+
+      <a href="resources.html" class="menu-card">
+        <div class="card-icon" style="background:none;width:72px;height:72px;">
+          <img src="assets/images/Cortex-XSIAM-Hybrid.png" alt="Cortex XSIAM" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <span class="card-label">Resources</span>
+        <span class="card-sub">Docs, blog, GitHub, press</span>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>
