@@ -4,12 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-Internal PANW account research for **Lambda AI** (GPU cloud), used by a sales engineer for technical enablement and firewall positioning. Not a git repo, not deployed. The site holds internal sales strategy ("Not for customer distribution" footer), so don't add a public deploy workflow without asking.
+Internal PANW account research for **Lambda AI** (GPU cloud), used by a sales engineer for technical enablement and firewall positioning.
+
+**Deployed publicly:** pushed to the public repo `github.com/mvu-panw/lambda_research` (branch `main`). `.github/workflows/pages.yml` publishes only `site/` to GitHub Pages on every push to `main`. The repo itself (including `corpus/` and `CLAUDE.md`) is public too, so the user chose to publish knowing the positioning is visible to anyone. One-time manual step: Settings → Pages → Source = "GitHub Actions".
+
+`Palo Alto Networks Resources/` (1.4 GB of public PANW PDFs) is gitignored as local reference only. Adding it would need Git LFS, because some files are close to GitHub's 100 MB limit.
 
 ## Layout
 
 | Path | What |
 |---|---|
+| `.github/workflows/pages.yml` | GitHub Pages deploy (copies `site/` → `_site`) |
 | `site/` | Static 5-page front end: `index`, `architecture`, `nvidia-gear`, `positioning`, `resources` |
 | `corpus/{docs,blog,site}/*.md` | Plain-text crawl of docs.lambda.ai and lambda.ai (from sitemaps). Grep this before searching the web. |
 | `corpus/github/<org>.json` | Repo listings for `lambdal` and `LambdaLabsML` (stars, description, last push) |
