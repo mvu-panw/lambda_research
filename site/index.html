@@ -15,6 +15,7 @@
       <a href="architecture.html">Architecture</a>
       <a href="nvidia-gear.html">NVIDIA Gear</a>
       <a href="positioning.html">Firewall Positioning</a>
+      <a href="identity.html">Identity Security</a>
       <a href="resources.html">Resources</a>
     </div>
   </nav>
@@ -32,6 +33,7 @@
           <li><strong>Who:</strong> an AI-only GPU cloud founded in 2012. It is an NVIDIA Exemplar Cloud partner and seven-time NVIDIA Partner of the Year, with SOC 2 Type II. It runs AI factories from 5&ndash;75MW sites up to 75MW+ campuses. <a class="src" href="https://lambda.ai/investors" target="_blank" rel="noopener">investors</a></li>
           <li><strong>Incumbent:</strong> <strong>Fortinet FortiGate</strong> provides the Private Cloud perimeter and VPN, with customers on FortiClient SSL-VPN. Fortinet removed that mode in FortiOS 7.6.3. <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">docs</a></li>
           <li><strong>Recommendation:</strong> PA-5580 HA per Private Cloud, PA-7500 on the shared cloud edge, PA-3440 for management, PA-415-5G for OOB, and Prisma AIRS on BlueField for inference and head nodes. Nothing goes in the GPU fabric. <a href="positioning.html" class="src">details &rarr;</a></li>
+          <li><strong>Identity:</strong> Google Workspace plus a likely Okta IdP. Access reviews are annual, and a September 2026 job post lists contractor/BYOD access, AI-agent data controls, and privileged access as near-term work. That opens Prisma Access Browser, AI Access Security, and CyberArk. <a href="identity.html" class="src">details &rarr;</a></li>
           <li><strong>Why now:</strong> the forced VPN migration; a new CEO with a telco and infrastructure background; Vera Rubin buildouts (BlueField-4 "zero-trust security isolation", H2 2026); and hyperscale and pre-IPO customers pushing security scrutiny upstream.</li>
         </ul>
       </div>
@@ -91,6 +93,14 @@
         </div>
         <span class="card-label">Firewall Positioning</span>
         <span class="card-sub">Models, talk track, discovery</span>
+      </a>
+
+      <a href="identity.html" class="menu-card">
+        <div class="card-icon" style="background:none;width:72px;height:72px;">
+          <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" style="width:100%;height:100%;object-fit:contain;" />
+        </div>
+        <span class="card-label">Identity Security</span>
+        <span class="card-sub">Okta/Workspace stack, IAM gaps, CyberArk</span>
       </a>
 
       <a href="resources.html" class="menu-card">
