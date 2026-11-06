@@ -15,6 +15,7 @@
       <a href="index.html">Home</a>
       <a href="architecture.html">Architecture</a>
       <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="identity.html">Identity Security</a>
       <a href="resources.html">Resources</a>
     </div>
   </nav>
@@ -26,7 +27,7 @@
     </div>
 
     <div class="banner">
-      <strong>Incumbent: Fortinet FortiGate</strong> on Private Cloud (perimeter and VPN), per <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">Lambda docs</a>. Customers reach their clusters over FortiClient <strong>SSL-VPN</strong> with a username and password, and SSO is turned off. Fortinet <a class="src" href="https://community.fortinet.com/t5/FortiGate/Technical-Tip-Changes-on-SSL-VPN-modes-starting-from-v7-6-3/ta-p/388462" target="_blank" rel="noopener">removed SSL-VPN tunnel mode in FortiOS 7.6.3</a>, so Lambda has to re-plumb customer VPN access either way. That is the opening.
+      <strong>Incumbent: Fortinet FortiGate</strong> on Private Cloud (perimeter and VPN), per <a class="src" href="https://docs.lambda.ai/private-cloud/accessing-private-cloud/" target="_blank" rel="noopener">Lambda docs</a>. Customers reach their clusters over FortiClient <strong>SSL-VPN</strong> with a username and password, and the setup guide turns SSO off (customers <em>may</em> connect their own IdP). <a href="identity.html">Identity angle &rarr;</a> Fortinet <a class="src" href="https://community.fortinet.com/t5/FortiGate/Technical-Tip-Changes-on-SSL-VPN-modes-starting-from-v7-6-3/ta-p/388462" target="_blank" rel="noopener">removed SSL-VPN tunnel mode in FortiOS 7.6.3</a>, so Lambda has to re-plumb customer VPN access either way. That is the opening.
     </div>
 
     <p class="section-label">Recommendation by enforcement point</p>

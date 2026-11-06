@@ -2,3 +2,5 @@
 __pycache__/
 # 1.4 GB of PANW public docs, local reference only (would need Git LFS)
 Palo Alto Networks Resources/
+# Fortinet public docs (competitive reference); FortiOS admin guide is 148 MB, over GitHub limit
+fortinet resources/
