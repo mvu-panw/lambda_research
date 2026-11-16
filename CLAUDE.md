@@ -17,7 +17,7 @@ Internal PANW account research for **Lambda AI** (GPU cloud), used by a sales en
 | Path | What |
 |---|---|
 | `.github/workflows/pages.yml` | GitHub Pages deploy (copies `site/` → `_site`) |
-| `site/` | Static 6-page front end: `index`, `architecture`, `nvidia-gear`, `positioning`, `identity`, `resources` |
+| `site/` | Static 7-page front end: `index`, `global-strategy`, `architecture`, `nvidia-gear`, `positioning`, `identity`, `resources` |
 | `corpus/research/*.md` | Hand-collected evidence the crawler can't get (DNS, Ashby job posts, SafeBase trust-portal control text), dated in the filename |
 | `corpus/{docs,blog,site}/*.md` | Plain-text crawl of docs.lambda.ai and lambda.ai (from sitemaps). Grep this before searching the web. |
 | `corpus/github/<org>.json` | Repo listings for `lambdal` and `LambdaLabsML` (stars, description, last push) |
@@ -41,9 +41,9 @@ To crawl a new source, add its sitemap to `SITEMAPS` or an org to `GITHUB_ORGS` 
 
 ## Site conventions
 
-- **The UI is copied from `~/ai_sec_by_design`** (Prisma AIRS look: cyan/purple gradient, Inter font). `site/assets/css/styles.css` is that file unchanged, plus a block at the end marked "Lambda account site additions" (`.tag-*` confidence pills, `.prose`, `.two-col`, `.link-grid`/`.link-card`, `.table-wrap`, mobile nav wrap). Tables reuse the template's `.scoreboard-table`.
-- **No templating:** nav and footer are copy-pasted into all 6 pages. Each page's `.nav-links` lists the *other* pages (Home appears on every page except `index.html`). Edit all 6 files when changing nav.
-- Stylesheet is linked as `styles.css?v=1`. Bump it on every page together after CSS edits.
+- **The UI is copied from `~/ai_sec_by_design`** (Prisma AIRS look: cyan/purple gradient, Inter font). `site/assets/css/styles.css` is that file unchanged, plus a block at the end marked "Lambda account site additions" (`.tag-*` confidence pills, `.prose`, `.two-col`, `.link-grid`/`.link-card`, `.table-wrap`, mobile nav wrap, and `.stat-row`/`.timeline` ported from `~/nebius` for the Global Strategy page). Tables reuse the template's `.scoreboard-table`.
+- **No templating:** nav and footer are copy-pasted into all 7 pages. Each page's `.nav-links` lists the *other* pages (Home appears on every page except `index.html`). Edit all 7 files when changing nav.
+- Stylesheet is linked as `styles.css?v=2`. Bump it on every page together after CSS edits.
 - **Every factual claim carries a source link and a confidence tag**: `tag-confirmed` (Lambda-owned page), `tag-reported` (third-party or secondhand), `tag-inferred` (our reasoning). PANW performance numbers come from reseller-hosted datasheet mirrors and are flagged as needing confirmation against official datasheets.
 
 ## Key account facts (verified in corpus, Oct 2026)
@@ -57,6 +57,7 @@ To crawl a new source, add its sitemap to `SITEMAPS` or an org to `GITHUB_ORGS` 
 - Positioning logic: firewalls go north-south only (DIA edge, mgmt, OOB) and never in the IB/RoCE GPU fabric. Prisma AIRS on BlueField-3 is designed for ~1–5 Gbps, so position it for inference and head nodes, not training.
 - Identity (`site/identity.html`, evidence in `corpus/research/identity-2026-11.md` and `refresh-2026-11-16.md`): Google Workspace is confirmed (MX/SPF). **Okta is confirmed** as the workforce IdP by the Oct 2026 Workday Integration Architect post (Workday → Okta JML, access provisioning through Lumos; stack also lists NetSuite, Workato, BigQuery). Which tenant (`lambda.okta.com` IE vs `lambdal.okta.com` Classic) is production is still `tag-inferred`. Trust-portal SOC 2 text confirms MFA on the IAM platform, HR-driven provisioning, and only *annual* access reviews. The Enterprise Security job post (Sep 2026) lists contractor/BYOD access, AI-agent data controls, and privileged access as the roadmap.
 - Lambda Cloud IAM/RBAC launched Nov 4, 2026 (`corpus/blog/lambda.ai__blog__lambda-cloud-iam-rbac.md`): roles, groups, service identities with expiring keys. Before that every API key had its owner's full access; the docs still say so, and legacy personal keys stay live until deleted. Console SSO (SAML/OIDC) is 1CC-only, by invitation, with JIT provisioning and no documented SCIM.
+- Global (`site/global-strategy.html`, evidence in `corpus/research/global-2026-11-16.md`): Lambda is North America-first. Non-US sites with Lambda's own staff are a live 142 MW Quebec campus (10k+ Blackwell Ultra on CPO; the operator is unnamed and possibly QScale Q01, which is `tag-inferred`) and a Querétaro, Mexico colo fit-out. The On-Demand docs list 5 non-US regions (Tokyo, Osaka, India, Germany, Israel) with no disclosed scale. All security roles are US-based. Mubadala-led rounds are `tag-reported` only. This page mirrors the Nebius `us-strategy.html` structure.
 - Lambda moved to `lambda.com` on Nov 5, 2026; `lambda.ai`, `docs.lambda.ai`, `cloud.lambda.ai`, and `trust.lambda.ai` redirect. Official domains list: `corpus/site/lambda.ai__site-and-email-domains.md`. Sitemaps now list `lambda.com` URLs; `crawl.py`'s `slug()` maps them back to `lambda.ai__` filenames so the corpus doesn't duplicate. Corpus filenames and site links still use the `.ai` URLs; they redirect. The trust portal is SafeBase; its Auth0/Drata strings belong to SafeBase, not Lambda.
 
 ## Research tooling

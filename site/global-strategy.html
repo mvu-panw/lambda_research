@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lambda AI Account — Global Strategy</title>
+  <link rel="icon" type="image/png" href="assets/images/PAN-Color.png" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=2" />
+</head>
+<body>
+  <nav>
+    <img src="assets/images/PAN-Color.png" alt="Palo Alto Networks" class="logo" />
+    <a class="site-title" href="index.html">Lambda AI Account</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="nvidia-gear.html">NVIDIA Gear</a>
+      <a href="positioning.html">Firewall Positioning</a>
+      <a href="identity.html">Identity Security</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Global Strategy</h1>
+      <p>Where Lambda runs and builds outside the US, how big, and who it is hiring to run it. Researched November 16, 2026 from Lambda's docs, press releases, and Ashby job board, plus third-party press.</p>
+    </div>
+
+    <div class="banner">
+      <span class="tag tag-confirmed">Confirmed</span> stated on a Lambda-owned page or job post &nbsp;
+      <span class="tag tag-reported">Reported</span> third-party or secondhand source &nbsp;
+      <span class="tag tag-inferred">Inferred</span> our reading, verify in discovery
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">2</div><div class="lbl">non-US countries where Lambda staffs its own data centers: Canada (Quebec City) and Mexico (Querétaro)</div></div>
+      <div class="stat"><div class="num">142 MW</div><div class="lbl">secured at the Quebec campus, home to 10,000+ Blackwell Ultra GPUs on co-packaged optics</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">non-US On-Demand regions: Tokyo, Osaka, India, Germany, Israel</div></div>
+      <div class="stat"><div class="num">3 of 95</div><div class="lbl">open roles are outside the US: Quebec City, Querétaro, Dublin (Nov 16, 2026)</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:32px;">
+      <p style="font-weight:600;font-size:1.15rem;margin-bottom:14px;color:var(--cyan);">The 30-second version</p>
+      <div class="prose">
+        <ul>
+          <li><strong>Shape of the build:</strong> Lambda is a North American builder. Its infrastructure pages map data centers across "the United States and Canada", and its VP of Data Center Infrastructure has said the company is "focused right now in the US because it really is ground zero". The large non-US build is <strong>Quebec</strong>, and a second North American site is being fitted out in <strong>Querétaro, Mexico</strong>. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/ai-infrastructure" target="_blank" rel="noopener">infrastructure</a> <a class="src" href="https://lambda.ai/blog/building-the-aggregated-edge-for-sovereign-ai" target="_blank" rel="noopener">podcast</a></li>
+          <li><strong>Reach beyond North America is lighter:</strong> the On-Demand docs list five non-US regions (Tokyo, Osaka, India, Germany, Israel), and Lambda bills customers in 20 countries and regions. No Lambda-run facility, local hiring, or press release backs any of the five, so they are most likely small colocation or partner deployments. <span class="tag tag-confirmed">Confirmed</span> regions exist <a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">regions</a> <span class="tag tag-inferred">Inferred</span> scale</li>
+          <li><strong>Positioning:</strong> Lambda markets "distributed AI factories" of 5&ndash;75 MW in strategic metros to "meet sovereign-AI and data-protection laws", alongside 75 MW+ contiguous campuses. That is the hook for in-country AI capacity, but Lambda has announced no sovereign deal outside the US. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/ai-infrastructure" target="_blank" rel="noopener">infrastructure</a></li>
+          <li><strong>Why it matters for PANW:</strong> each country adds an edge, management and OOB footprint under different data-residency rules, run by a security team based entirely in the US. One policy plane across Quebec, Mexico and the overseas regions is the pitch. <span class="tag tag-inferred">Inferred</span> <a href="#panw" class="src">details &darr;</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="section-label">Global footprint</p>
+    <div class="card table-wrap" style="padding:8px 8px;margin-bottom:16px;">
+      <table class="scoreboard-table">
+        <thead>
+          <tr><th>Location</th><th>Model / partner</th><th>Capacity</th><th>GPUs / use</th><th>Status &amp; signal</th><th>Sources</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>United States<br /><span class="note">context only</span></td>
+            <td>Leased colocation (Aligned DFW-04, Prime LAX01, EdgeConneX Chicago and Atlanta) moving to <strong>owned or developed campuses</strong> (Mayes County, OK; Lowndes County, AL)</td>
+            <td>Alabama campus: $33.1B investment. LAX01: 21 MW initial lease. Company vision "3GW+".</td>
+            <td>All product lines. 9 of the 14 On-Demand regions.</td>
+            <td><strong>Core market.</strong> 92 of the 95 open roles are in the US. Alabama construction starts Q1 2027.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://lambda.com/blog/lambda-to-invest-33-billion-in-alabama-with-new-data-center" target="_blank" rel="noopener">Alabama</a> <a class="src" href="https://lambda.ai/blog/prime-data-centers-and-lambda-partner-to-power-the-next-era-of-superintelligence-with-ai-optimized-infrastructure-in-southern-california" target="_blank" rel="noopener">LAX01</a> <a class="src" href="https://lambda.ai/superintelligence" target="_blank" rel="noopener">3GW+</a></td>
+          </tr>
+          <tr>
+            <td>Quebec, Canada<br /><span class="note">Quebec City area</span></td>
+            <td>Not disclosed. A QScale Q01 campus in Lévis, across the river from Quebec City, advertises the same 142 MW and 100% renewable power. <span class="tag tag-inferred">Inferred</span></td>
+            <td><strong>142 MW</strong> secured, nearly 100% renewable, PUE 1.2 guaranteed, free cooling up to 80% of the year</td>
+            <td><strong>10,000+ Blackwell Ultra GPUs</strong> on NVIDIA Photonics CPO switches (144&times;800G). Large-scale training.</td>
+            <td><strong>Live.</strong> On November 16, 2026, Lambda called it the world's first large-scale CPO deployment, featured in NVIDIA's SC26 address. A senior DC operations engineer is being hired for on-site shift work 5 days a week.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://lambda.com/blog/worlds-first-large-scale-deployment-of-nvidia-photonics-switches-with-cpo" target="_blank" rel="noopener">press release</a> <a class="src" href="https://jobs.ashbyhq.com/Lambda/7c1d9573-d7ac-4b4e-abad-df4b5c61fa65" target="_blank" rel="noopener">job</a> <a class="src" href="https://www.qscale.com/q01-campus" target="_blank" rel="noopener">QScale Q01</a></td>
+          </tr>
+          <tr>
+            <td>Querétaro, Mexico</td>
+            <td>Colocation white-space fit-out, so Lambda is a tenant. The host provider is not named. <span class="tag tag-confirmed">Confirmed</span> Querétaro is Mexico's main data center hub, home to CloudHQ, ODATA and others. <span class="tag tag-reported">Reported</span></td>
+            <td>Not disclosed</td>
+            <td>Not disclosed. The fit-out scope includes high-density racks, liquid cooling and CDU tie-ins, which point to Blackwell-class systems. <span class="tag tag-inferred">Inferred</span></td>
+            <td><strong>Being built.</strong> A construction site foreman was posted on September 4, 2026, and an aggregator shows Querétaro DC operations roles with 5-day on-site shift work. There is no press release yet.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> site exists<br /><a class="src" href="https://jobs.ashbyhq.com/Lambda/50148338-7b5c-4d70-b559-39439772f36b" target="_blank" rel="noopener">job</a> <a class="src" href="https://www.datacenters.com/lambda-inc-queretaro" target="_blank" rel="noopener">directory</a> <a class="src" href="https://www.latintimes.com/mexicos-data-center-boom-how-queretaro-became-latin-americas-digital-heartland-599851" target="_blank" rel="noopener">market</a></td>
+          </tr>
+          <tr>
+            <td>Japan<br /><span class="note"><code>asia-northeast-1</code> Tokyo, <code>asia-northeast-2</code> Osaka</span></td>
+            <td>Not disclosed</td>
+            <td>Not disclosed</td>
+            <td>On-Demand instances. "Not every instance type will be available in every region."</td>
+            <td><strong>Listed as live.</strong> No Japanese hiring or press. The only non-US market with two regions, which suggests real demand. <span class="tag tag-inferred">Inferred</span></td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">regions</a></td>
+          </tr>
+          <tr>
+            <td>India<br /><span class="note"><code>asia-south-1</code></span></td>
+            <td>Not disclosed</td>
+            <td>Not disclosed</td>
+            <td>On-Demand instances</td>
+            <td><strong>Listed as live.</strong> India is <strong>not</strong> in Lambda's billing countries list, so the region likely serves foreign customers who need capacity in India. <span class="tag tag-inferred">Inferred</span></td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">regions</a> <a class="src" href="https://docs.lambda.ai/public-cloud/manage-billing/" target="_blank" rel="noopener">billing</a></td>
+          </tr>
+          <tr>
+            <td>Germany<br /><span class="note"><code>europe-central-1</code></span></td>
+            <td>Not disclosed</td>
+            <td>Not disclosed</td>
+            <td>On-Demand instances</td>
+            <td><strong>Listed as live.</strong> Lambda's only EU region. EU-sovereign competitors pitch against Lambda as having "no European data-centre locations" plus US CLOUD Act exposure. <span class="tag tag-reported">Reported</span></td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">regions</a> <a class="src" href="https://www.spheron.network/blog/gpu-cloud-providers-europe-2026/" target="_blank" rel="noopener">competitor view</a></td>
+          </tr>
+          <tr>
+            <td>Israel<br /><span class="note"><code>me-west-1</code></span></td>
+            <td>Not disclosed</td>
+            <td>Not disclosed</td>
+            <td>On-Demand instances</td>
+            <td><strong>Listed as live.</strong> Israel is also a billing country. <span class="tag tag-confirmed">Confirmed</span></td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://docs.lambda.ai/public-cloud/on-demand/" target="_blank" rel="noopener">regions</a></td>
+          </tr>
+          <tr>
+            <td>Dublin, Ireland</td>
+            <td>Office or remote hire; no data center</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td><strong>Network leadership hire.</strong> A Senior Optical Engineering Manager (posted November 6, 2026) will "lead building our backbone and customer interconnectivity". Lambda "has 10x'd over the last three years". A Dublin base for the backbone lead hints at transatlantic or European reach. <span class="tag tag-inferred">Inferred</span></td>
+            <td><span class="tag tag-confirmed">Confirmed</span><br /><a class="src" href="https://jobs.ashbyhq.com/Lambda/13f69cd9-50c6-4a02-bb96-82d898b3235f" target="_blank" rel="noopener">job</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-bottom:40px;">The region list comes from the On-Demand docs, which name 14 regions (9 US, 5 non-US). Lambda's region documentation does not say whether a region is owned, leased, or partner-run. Aggregators disagree on the footprint, with one adding Italy and Sydney, so we rely on Lambda's docs. Quebec and Querétaro are the only non-US sites with Lambda's own on-site staff. Raw notes are in <code>corpus/research/global-2026-11-16.md</code>.</p>
+
+    <div class="two-col" style="margin-bottom:40px;">
+      <div class="card">
+        <h2>Hiring by location</h2>
+        <div class="prose">
+          <p>Ashby snapshot taken November 16, 2026: 95 open roles, 3 of them outside the US. DC operations roles appear at a site roughly 6&ndash;12 months before it goes live or expands. <span class="tag tag-inferred">Inferred</span></p>
+        </div>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="scoreboard-table" style="min-width:0;">
+            <thead><tr><th>Location</th><th>Roles</th><th>Signal</th></tr></thead>
+            <tbody>
+              <tr><td>Quebec City, Canada</td><td>1</td><td><a href="https://jobs.ashbyhq.com/Lambda/7c1d9573-d7ac-4b4e-abad-df4b5c61fa65" target="_blank" rel="noopener">Senior DC Operations Systems Engineer</a> (Nov 2): rack and stack, DCIM, <strong>carrier DIA turn-ups</strong>, RMA</td></tr>
+              <tr><td>Querétaro, Mexico</td><td>1</td><td><a href="https://jobs.ashbyhq.com/Lambda/50148338-7b5c-4d70-b559-39439772f36b" target="_blank" rel="noopener">DC Construction Site Foreman</a> (Sep 4): colo fit-out with "low voltage and network installers" and liquid cooling. Aggregators also show DC ops engineer roles.</td></tr>
+              <tr><td>Dublin, Ireland</td><td>1</td><td><a href="https://jobs.ashbyhq.com/Lambda/13f69cd9-50c6-4a02-bb96-82d898b3235f" target="_blank" rel="noopener">Senior Optical Engineering Manager</a> (Nov 6): backbone and customer interconnect, reporting to the Senior Director of Capacity Delivery</td></tr>
+              <tr><td>US offices</td><td>~87</td><td>San Francisco, San Jose and Bellevue. All security roles, including Enterprise Security, D&amp;R, Product Security and the Staff Security Architect, are US-based.</td></tr>
+              <tr><td>US data centers</td><td>~8</td><td>Dallas, Austin, Kansas City, Columbus, Elk Grove Village (IL)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Counts include each role's primary and secondary locations, so they overlap. Source: Ashby job-board API, captured in <code>corpus/research/global-2026-11-16.md</code>.</p>
+      </div>
+      <div class="card">
+        <h2>Global go-to-market &amp; capital</h2>
+        <div class="prose">
+          <ul>
+            <li><strong>Where it sells:</strong> card billing is supported in 20 places: the US, Canada, the UK, the EU except Lithuania, Iceland, Norway, Switzerland, Israel, the UAE, Turkey, Japan, South Korea, Taiwan, Singapore, Australia, New Zealand, Chile, Puerto Rico and South Africa. India and Mexico are <strong>not</strong> on the list. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/manage-billing/" target="_blank" rel="noopener">billing</a></li>
+            <li><strong>Leadership with global operating experience:</strong> CEO Michel Combes previously ran SoftBank International, Sprint and Alcatel-Lucent. Chairman John Donovan led AT&amp;T's network transformation. The May 2026 announcement frames the team as built because "demand for AI compute accelerates globally". <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/blog/lambda-assembles-leadership-team-to-power-gigawatt-scale-ai-infrastructure" target="_blank" rel="noopener">release</a></li>
+            <li><strong>Gulf capital:</strong> <strong>Mubadala Capital</strong>, the UAE sovereign-linked investor, was reported to be leading a $350M pre-IPO round in January 2026 and, by August, a $3B round. Neither is confirmed by Lambda. Gulf investors often bring regional capacity asks, so watch for a Middle East deal. <span class="tag tag-reported">Reported</span> <a class="src" href="https://siliconangle.com/2026/01/09/ai-cloud-provider-lambda-reportedly-raising-350m-round/" target="_blank" rel="noopener">SiliconANGLE</a> <a class="src" href="https://www.nextfin.ai/en/news/lambda-in-talks-for-3-billion-pre-ipo-round-cef5ee25d0" target="_blank" rel="noopener">NextFin</a></li>
+            <li><strong>Sovereign positioning:</strong> "distributed AI factories" are pitched to "meet sovereign-AI and data-protection laws". The VP of Data Center Infrastructure has called sovereign LLMs "a thing", noting that how countries' data is handled "is going to change". Air-gapped Superclusters are already sold to the US DoD. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/ai-infrastructure" target="_blank" rel="noopener">infrastructure</a> <a class="src" href="https://lambda.ai/government" target="_blank" rel="noopener">government</a></li>
+            <li><strong>Compliance base:</strong> data centers are SOC 2 Type II and ISO 27001, 27017, 27701 and 22301 compliant. ISO 27701 (privacy) is the one that matters most to EU and Canadian buyers. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.ai/superintelligence" target="_blank" rel="noopener">superintelligence</a></li>
+            <li><strong>Brand:</strong> on November 5, 2026, lambda.ai became <strong>lambda.com</strong>, giving Lambda a country-neutral domain for an international brand. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.com/blog/lambda-ai-is-now-lambda-com" target="_blank" rel="noopener">blog</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-label">Global timeline</p>
+    <div class="card" style="margin-bottom:40px;">
+      <ul class="prose timeline">
+        <li><span class="when">Nov 2025</span><span>$1.5B Series E led by TWG Global. Lambda first announces its adoption of NVIDIA CPO networking.</span></li>
+        <li><span class="when">Jan 2026</span><span>Mubadala Capital reported to lead a $350M pre-IPO raise. Lambda joins the OCP Advisory Board.</span></li>
+        <li><span class="when">May 2026</span><span>Michel Combes (ex-SoftBank International) named CEO and John Donovan Chairman, framed around global demand.</span></li>
+        <li><span class="when">Aug 2026</span><span>A $3B pre-IPO round led by Mubadala is reported.</span></li>
+        <li><span class="when">Sep 2026</span><span>Querétaro, Mexico colo fit-out begins hiring (construction site foreman).</span></li>
+        <li><span class="when">Nov 2026</span><span>Quebec City DC operations hire (Nov 2). lambda.ai becomes lambda.com (Nov 5). Dublin optical and backbone manager posted (Nov 6). <strong>Quebec: 10,000+ Blackwell Ultra GPUs on CPO announced</strong> (Nov 16).</span></li>
+        <li><span class="when">2027</span><span>Querétaro capacity is expected to come online, and Vera Rubin (BlueField-4) rolls out. Whether the overseas regions get Rubin is unknown. <span class="tag tag-inferred">Inferred</span></span></li>
+      </ul>
+    </div>
+
+    <p class="section-label" id="panw">What it means for PANW <span class="tag tag-inferred">Inferred</span></p>
+    <div class="card" style="margin-bottom:40px;">
+      <div class="prose">
+        <ul>
+          <li><strong>Quebec is the near-term target.</strong> It is Lambda's largest disclosed non-US fabric, it is live, and Lambda's own staff are turning up carrier DIA circuits there. It needs the same north-south design as the US Private Cloud: PA-5580 HA at the DIA edge, plus a management and OOB tier. Ask whether it also uses FortiGate.</li>
+          <li><strong>Data-residency rules differ in every country.</strong> Quebec's Law 25, Mexico's LFPDPPP, the GDPR and the EU AI Act in Germany, Israel's privacy law, and India's DPDP Act all apply. Customers buying there will ask for in-country logging and isolation evidence. Strata Cloud Manager or Panorama gives one policy and logging plane with per-region log residency, which supports "distributed AI factories" for sovereign buyers.</li>
+          <li><strong>A US-only security team runs a multi-country estate.</strong> Every security role is in the Bay Area or Bellevue, and Querétaro and Quebec are staffed by DC technicians only. Remote, centrally managed firewalls with zero-touch provisioning and XSIAM-run SOC automation suit sites with no local security staff.</li>
+          <li><strong>Backbone and interconnect.</strong> A dedicated optical backbone and customer-interconnect org (Dublin lead) means inter-site and customer links are being designed now. Position encrypted, high-throughput DCI at the backbone edge and Prisma Access for staff working across countries. Firewalls stay out of the GPU fabric.</li>
+          <li><strong>Mexico is the next greenfield.</strong> The colo fit-out is happening now, so the network design, including "network installers" in the fit-out scope, is being set. Ask who owns the edge standard and whether Querétaro serves US customers, nearshoring demand, or LATAM.</li>
+          <li><strong>Who to find:</strong> the Senior Director of Capacity Delivery (the Dublin role reports there), the Staff Security Architect (who sets standards across sites), and VP of Data Center Infrastructure Ken Patchett.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Internal — Palo Alto Networks account research. Not for customer distribution.
+  </footer>
+</body>
+</html>
