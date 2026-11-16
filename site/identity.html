@@ -23,11 +23,11 @@
   <main>
     <div class="page-header">
       <h1>Identity Security</h1>
-      <p>What Lambda runs for workforce identity, what it gives customers, and where PANW identity security fits. Researched November 6, 2026.</p>
+      <p>What Lambda runs for workforce identity, what it gives customers, and where PANW identity security fits. Researched November 6, 2026; updated November 16, 2026.</p>
     </div>
 
     <div class="banner">
-      <strong>Bottom line:</strong> Lambda's workforce identity is a Google Workspace shop with an IdP that is almost certainly <strong>Okta</strong> (not confirmed by name). Joiner, mover, and leaver changes are HR-driven, but access reviews happen only once a year. A new Enterprise Security role (posted September 24, 2026) spells out the near-term roadmap: <strong>role-matched identity automation, secure access for contractors and personal devices, controls on where AI agents send company data, and sandboxes for agents running off laptops.</strong> That list maps almost one-to-one onto Prisma Access Browser, AI Access Security, CyberArk, and Cortex ITDR. On the customer side, Lambda Cloud API keys carry <strong>full access to every API operation</strong>, and Private Cloud VPN access is a password-based FortiClient login by default.
+      <strong>Bottom line:</strong> Lambda's workforce identity is a Google Workspace shop with <strong>Okta</strong> as the IdP, now confirmed by name in Lambda's own job post. Joiner, mover, and leaver changes flow from <strong>Workday</strong> to Okta, and access is provisioned through <strong>Lumos</strong>, but access reviews happen only once a year. A new Enterprise Security role (posted September 24, 2026) spells out the near-term roadmap: <strong>role-matched identity automation, secure access for contractors and personal devices, controls on where AI agents send company data, and sandboxes for agents running off laptops.</strong> That list maps almost one-to-one onto Prisma Access Browser, AI Access Security, CyberArk, and Cortex ITDR. On the customer side, Lambda Cloud only got role-based IAM on <strong>November 4, 2026</strong>. Until then every API key carried its owner's full access, and existing personal keys stay live until someone deletes them. Private Cloud VPN access is a password-based FortiClient login by default.
     </div>
 
     <p class="section-label">Lambda's own (workforce) identity stack</p>
@@ -45,9 +45,9 @@
           </tr>
           <tr>
             <td>Workforce IdP / SSO</td>
-            <td><strong>Okta</strong> (likely). Entra ID is the other option the posting names.</td>
-            <td>The Enterprise Security posting asks for depth in "identity providers and SSO (e.g., Okta, Entra ID)". Two Okta tenants exist under Lambda-like names. <code>lambdal.okta.com</code> runs the Classic engine and matches Lambda's GitHub org name <code>lambdal</code>. <code>lambda.okta.com</code> runs Identity Engine with Identity Threat Protection enabled. Okta's public org-metadata endpoint does not show who owns either tenant.</td>
-            <td><span class="tag tag-inferred">Inferred</span> <a class="src" href="https://jobs.ashbyhq.com/Lambda/8d2158d9-9785-4a2a-87ea-5690ff0cabe5" target="_blank" rel="noopener">job post</a></td>
+            <td><strong>Okta</strong></td>
+            <td>The Senior Workday Integration Architect post (October 19, 2026) describes "the Workday-to-Okta lifecycle (joiner, mover, leaver)" and lists Okta in "the rest of our stack". The Enterprise Security post names "Okta, Entra ID" only as examples. Two Okta tenants exist under Lambda-like names. <code>lambdal.okta.com</code> runs the Classic engine and matches Lambda's GitHub org name <code>lambdal</code>. <code>lambda.okta.com</code> runs Identity Engine with Identity Threat Protection enabled. Okta's public org-metadata endpoint does not show who owns either tenant, so which one is production is still <span class="tag tag-inferred">Inferred</span>.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://jobs.ashbyhq.com/Lambda/9df88885-9d0c-4f7e-be18-1c13cd6b5493" target="_blank" rel="noopener">job post</a></td>
           </tr>
           <tr>
             <td>Authentication policy</td>
@@ -57,9 +57,9 @@
           </tr>
           <tr>
             <td>Lifecycle (JML)</td>
-            <td>HR platform &rarr; ticketing &rarr; provisioning. Access reviews are <strong>annual</strong>.</td>
-            <td>New-hire access is granted only after HR onboarding, which auto-creates provisioning tickets. Offboarding requests access removal automatically. Management reviews access "at least annually" (controls 6.1&ndash;6.4). The HR and ticketing vendors are not named.</td>
-            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://trust.lambda.ai" target="_blank" rel="noopener">trust portal</a></td>
+            <td><strong>Workday</strong> (HR) &rarr; <strong>Okta</strong> &rarr; access provisioning through <strong>Lumos</strong>. Access reviews are <strong>annual</strong>.</td>
+            <td>New-hire access is granted only after HR onboarding, which auto-creates provisioning tickets. Offboarding requests access removal automatically. Management reviews access "at least annually" (controls 6.1&ndash;6.4). The Workday post names the vendors: IT owns "the Workday-to-Okta lifecycle" and "access provisioning through Lumos". It also lists NetSuite, Workato, and BigQuery in the stack. The ticketing vendor is still not named.</td>
+            <td><span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://trust.lambda.ai" target="_blank" rel="noopener">trust portal</a> <a class="src" href="https://jobs.ashbyhq.com/Lambda/9df88885-9d0c-4f7e-be18-1c13cd6b5493" target="_blank" rel="noopener">job post</a></td>
           </tr>
           <tr>
             <td>Endpoints</td>
@@ -99,14 +99,14 @@
           </tr>
           <tr>
             <td>Domain migration</td>
-            <td><code>cloud.lambda.ai</code> and <code>trust.lambda.ai</code> now redirect to <strong><code>lambda.com</code></strong></td>
-            <td>Three live brand domains (lambdalabs.com, lambda.ai, lambda.com) widen the phishing and lookalike surface for console credential theft. The console login page uses Cloudflare Turnstile. Its auth backend could not be identified from the page.</td>
+            <td><code>lambda.ai</code>, <code>docs.lambda.ai</code>, <code>cloud.lambda.ai</code>, and <code>trust.lambda.ai</code> all redirect to <strong><code>lambda.com</code></strong> (checked Nov 16, 2026)</td>
+            <td>Lambda moved to <code>lambda.com</code> on November 5, 2026 and publishes an <a class="src" href="https://lambda.com/site-and-email-domains" target="_blank" rel="noopener">official domains list</a>: <code>lambda.com</code> is current, and <code>lambda.ai</code>, <code>lambdal.com</code>, and <code>lambdalabs.com</code> are legacy. Four legitimate domains during the transition widen the phishing and lookalike surface for console credential theft, and Lambda's own page warns about lookalike spellings. The console login page uses Cloudflare Turnstile. Its auth backend could not be identified from the page.</td>
             <td><span class="tag tag-confirmed">Confirmed</span> <span class="note">HTTP headers</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="note" style="margin-bottom:40px;">Job postings were read from Lambda's public Ashby job board API (97 open roles on November 6, 2026). Security roles: Security Engineer (Jul 16), Enterprise Security (Sep 24), Staff Security Architect (Oct 8), Detection &amp; Response (Nov 3), Product Security (Nov 4). Raw notes are in <code>corpus/research/identity-2026-11.md</code>. No public report ties Lambda to Okta by name, and we found no public identity-related breach involving Lambda.</p>
+    <p class="note" style="margin-bottom:40px;">Job postings were read from Lambda's public Ashby job board API (97 open roles on November 6, 2026; 95 on November 16, with no new security roles). Security roles: Security Engineer (Jul 16), Enterprise Security (Sep 24), Staff Security Architect (Oct 8), Detection &amp; Response (Nov 3), Product Security (Nov 4). The IdP and lifecycle vendors come from the Senior Workday Integration Architect post (Oct 19). Raw notes are in <code>corpus/research/identity-2026-11.md</code>. No third-party report ties Lambda to Okta, and we found no public identity-related breach involving Lambda.</p>
 
     <p class="section-label">What Lambda gives its customers (product IAM)</p>
     <div class="two-col" style="margin-bottom:16px;">
@@ -114,10 +114,10 @@
         <h2>Lambda Cloud (On-Demand, 1CC)</h2>
         <div class="prose">
           <ul>
-            <li><strong>RBAC</strong> with user identities, service identities, and groups. Five account roles and two workspace roles: Account Admin, Account Member, IAM Admin, Billing Admin, Support Ticketing Admin, Workspace Owner, Workspace Member. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/predefined-roles/" target="_blank" rel="noopener">roles</a></li>
+            <li><strong>IAM / RBAC</strong>, launched <strong>November 4, 2026</strong>, with users, service identities, and groups. Predefined roles at account or workspace scope include Account Admin, Account Member, IAM Admin, Billing Admin, Support Ticketing Admin/Reader, Workspace Owner, Workspace Member, and Instance Reader. Limits are 100 groups and 50 service identities per account. Lambda-managed service identities in each account let Lambda act on the customer's behalf, for example for maintenance. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.com/blog/lambda-cloud-iam-rbac" target="_blank" rel="noopener">launch blog</a> <a class="src" href="https://docs.lambda.ai/public-cloud/predefined-roles/" target="_blank" rel="noopener">roles</a></li>
             <li><strong>Workspaces</strong> are the isolation boundary. Resources in one workspace cannot reach another. <a class="src" href="https://docs.lambda.ai/public-cloud/access-security/" target="_blank" rel="noopener">docs</a></li>
             <li><strong>SSO (SAML or OIDC)</strong> is available <strong>only to 1-Click Cluster customers</strong>, and only by invitation through the account manager. Users are provisioned just in time at first login, and domain ownership is proven with a DNS TXT record. No SCIM is documented. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/enabling-sso/" target="_blank" rel="noopener">SSO</a></li>
-            <li><strong>API keys "have full access to all Lambda API operations."</strong> They are long-lived and unscoped, with no expiry or IP binding documented. Service-identity keys can be governed through role assignment. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://docs.lambda.ai/public-cloud/access-security/" target="_blank" rel="noopener">docs</a></li>
+            <li><strong>API keys:</strong> before IAM, "every key carried its owner's full access", and the access-security docs still say keys "have full access to all Lambda API operations". Keys now inherit their identity's roles. Service-identity keys can have an expiration date, and each identity holds two keys for rotation. Old personal keys are untouched by the migration and "stay live until you do" delete them. No IP binding is documented. <span class="tag tag-confirmed">Confirmed</span> <a class="src" href="https://lambda.com/blog/lambda-cloud-iam-rbac" target="_blank" rel="noopener">launch blog</a> <a class="src" href="https://docs.lambda.ai/public-cloud/access-security/" target="_blank" rel="noopener">docs</a></li>
             <li><strong>Audit events</strong> come from an API endpoint only, retained for 6 months. They cover identity bans and suspensions, role changes, API and SSH key creation, and workspace membership. No push or SIEM export is documented. <a class="src" href="https://docs.lambda.ai/public-cloud/access-security/" target="_blank" rel="noopener">docs</a></li>
             <li><strong>1CC compute access</strong> goes through a management node used as a jump box, or through JupyterLab behind a public reverse tunnel with a per-node random token shown in the console. <a class="src" href="https://docs.lambda.ai/public-cloud/1-click-clusters/security-posture/" target="_blank" rel="noopener">docs</a></li>
           </ul>
@@ -164,7 +164,7 @@
           <tr>
             <td>"Privileged access" and identity automation, with access reviews only <strong>annual</strong></td>
             <td><strong>CyberArk</strong> (PAM, Identity Governance, Secure Cloud Access) <span class="note">PANW closed the deal Feb 11, 2026</span></td>
-            <td>Zero-standing-privilege, just-in-time access for Lambda engineers into AWS, GCP, Kubernetes, and bare metal. Continuous certification replaces the annual review. CyberArk is Okta-neutral, so it sits beside the IdP rather than replacing it. <span class="tag tag-reported">Reported</span> <a class="src" href="https://www.crnasia.com/news-network/2026/palo-alto-networks-completes-25b-acquisition-of-cyberark-for-identity-security-push" target="_blank" rel="noopener">CRN</a></td>
+            <td>Zero-standing-privilege, just-in-time access for Lambda engineers into AWS, GCP, Kubernetes, and bare metal. Continuous certification replaces the annual review. CyberArk is Okta-neutral, so it sits beside the IdP rather than replacing it. Lumos already handles access requests and provisioning, so position CyberArk Identity Governance carefully and lead with privileged access. <span class="tag tag-reported">Reported</span> <a class="src" href="https://www.crnasia.com/news-network/2026/palo-alto-networks-completes-25b-acquisition-of-cyberark-for-identity-security-push" target="_blank" rel="noopener">CRN</a></td>
           </tr>
           <tr>
             <td>Lambda operators in customer clusters (Managed Private Cloud, BMC, DPU, switch mgmt)</td>
@@ -182,9 +182,9 @@
             <td>The forced FortiOS 7.6.3 SSL-VPN migration is the trigger. Identity-bound access with no shared static credentials. <a href="positioning.html">See positioning &rarr;</a> <span class="tag tag-inferred">Inferred</span></td>
           </tr>
           <tr>
-            <td>Full-access, unscoped Lambda Cloud API keys</td>
+            <td>Legacy full-access personal API keys that outlive the November 2026 IAM launch</td>
             <td>Platform feedback, not a PANW SKU. CyberArk Secrets Manager for Lambda's own CI and automation keys.</td>
-            <td>A design-partner conversation: scoped and expiring keys are table stakes at hyperscalers. Raise it as a credibility point, not as a product pitch. <span class="tag tag-inferred">Inferred</span></td>
+            <td>A design-partner conversation. Lambda shipped roles and expiring service-identity keys in November 2026, so credit that, then ask how they will retire legacy personal keys and whether IP binding and SCIM come next. Raise it as a credibility point, not as a product pitch. <span class="tag tag-inferred">Inferred</span></td>
           </tr>
         </tbody>
       </table>
@@ -197,7 +197,7 @@
         <div class="prose">
           <ol>
             <li><strong>"Your job post is our product sheet."</strong> Contractor and BYOD access, AI agent data controls, and agent sandboxes are Lambda's own words from September 2026. Lead with Prisma Access Browser and AI Access Security, then use them to expand into SASE.</li>
-            <li><strong>"Keep Okta. Add privilege."</strong> PANW doesn't need to rip out the IdP. CyberArk adds just-in-time privileged access and continuous reviews on top of it.</li>
+            <li><strong>"Keep Okta and Lumos. Add privilege."</strong> PANW doesn't need to rip out the IdP or the access-request tool. CyberArk adds just-in-time privileged access and session evidence on top of them.</li>
             <li><strong>"Your customers will ask who at Lambda can touch their cluster."</strong> Managed Private Cloud promises revocable, audited Lambda access. Brokered and recorded operator sessions turn that promise into evidence for hyperscale and DoD procurement.</li>
             <li><strong>"One identity story, edge to SOC."</strong> GlobalProtect SAML at the customer edge, User-ID on the management firewall, and XSIAM ITDR for revocation, all on the same platform as the firewall recommendation.</li>
           </ol>
@@ -207,14 +207,14 @@
         <h2>Discovery questions</h2>
         <div class="prose">
           <ol>
-            <li>Which IdP is the system of record, Okta or Entra? Is <code>lambdal.okta.com</code> (Classic) a legacy tenant being migrated to Identity Engine?</li>
-            <li>Which HR and ticketing systems drive provisioning? Is SCIM used for SaaS, and how often do access reviews run?</li>
+            <li>Okta is the IdP. Is <code>lambdal.okta.com</code> (Classic) a legacy tenant being migrated to <code>lambda.okta.com</code> (Identity Engine)? Is Okta Identity Threat Protection licensed?</li>
+            <li>Workday feeds Okta and Lumos. Which apps does Lumos cover, is SCIM used for SaaS, and why do access reviews still run only annually?</li>
             <li>How do engineers get privileged access to AWS, GCP, Kubernetes, BMCs, and DPUs today: standing roles, a bastion, or a PAM tool?</li>
             <li>How do Lambda operators access a Managed Private Cloud, and what do the customer-facing audit logs come from?</li>
             <li>What is the plan for contractors and personal devices: VDI, enrollment, or a browser-based control?</li>
             <li>Which AI tools and agents do employees use, and is anything sanctioned versus blocked? Where do agents run, and what credentials do they hold?</li>
             <li>Which SIEM, SOAR, and EDR are in place, and are IdP logs in the SIEM with automated session revocation?</li>
-            <li>Are scoped or expiring API keys and SCIM on the Lambda Cloud roadmap? Do enterprise buyers ask for them?</li>
+            <li>Now that IAM has shipped, how will legacy full-access personal keys be retired? Are SCIM and IP-bound keys next? Do enterprise buyers ask for them?</li>
           </ol>
         </div>
       </div>

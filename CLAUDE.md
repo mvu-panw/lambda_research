@@ -35,6 +35,8 @@ pdftoppm -png -r 150 "Lambda 1-Click Clusters.pdf" site/assets/diagrams/1cc   # 
 
 To crawl a new source, add its sitemap to `SITEMAPS` or an org to `GITHUB_ORGS` at the top of `tools/crawl.py`.
 
+`crawl.py` sends a generic User-Agent; set `CRAWL_CONTACT` in the shell if a site needs a contact address (never hard-code one: the repo is public). It skips existing files, so to check cited pages for changes, re-fetch them to a scratch dir and diff.
+
 `crawl.py` fetches with `curl` via subprocess on purpose: the python.org Python on this Mac has no CA bundle, so `urllib` fails TLS verification. Don't "fix" this by disabling verification.
 
 ## Site conventions
@@ -46,16 +48,16 @@ To crawl a new source, add its sitemap to `SITEMAPS` or an org to `GITHUB_ORGS` 
 
 ## Key account facts (verified in corpus, Oct 2026)
 
-- Private Cloud perimeter/VPN is **Fortinet FortiGate** with FortiClient SSL-VPN (`corpus/docs/docs.lambda.ai__private-cloud__accessing-private-cloud.md`).
+- Private Cloud perimeter/VPN is **Fortinet FortiGate** with FortiClient SSL-VPN (`corpus/docs/docs.lambda.ai__private-cloud__accessing-private-cloud.md`). Job posts corroborate it (Senior Network Engineer: NGFW "e.g. Fortigate"; SDN role automates NGFW policy).
 - 1CC: 16–512 H100/B200, Quantum-2 400G IB (3,200 Gb/s per node), 2×100G Ethernet per node, shared DIA (`docs.lambda.ai__public-cloud__1-click-clusters.md`).
 - Lambda Cloud's own firewall is L3/L4 port/CIDR only, 100 global rules per workspace (`docs.lambda.ai__public-cloud__firewalls.md`).
 - Vera Rubin NVL72 (H2 2026) ships with BlueField-4, Spectrum-6, ConnectX-9 (`corpus/site/lambda.ai__vr-200.md`).
 - Lambda runs BlueField DPUs in zero-trust mode and owns them; its provisioning runs on the DPU (`corpus/blog/lambda.ai__blog__lambda-bare-metal-instances.md`). Any AIRS-on-DPU pitch is a platform sale to Lambda.
 - Private Cloud product page now redirects to `lambda.ai/superclusters`; Lambda also sells air-gapped Superclusters to DoD (`lambda.ai/government`).
 - Positioning logic: firewalls go north-south only (DIA edge, mgmt, OOB) and never in the IB/RoCE GPU fabric. Prisma AIRS on BlueField-3 is designed for ~1–5 Gbps, so position it for inference and head nodes, not training.
-- Identity (`site/identity.html`, evidence in `corpus/research/identity-2026-11.md`): Google Workspace is confirmed (MX/SPF). The workforce IdP is **likely Okta but unconfirmed**: `lambda.okta.com` and `lambdal.okta.com` tenants exist, but ownership isn't verified, so keep it tagged `tag-inferred`. Trust-portal SOC 2 text confirms MFA on the IAM platform, HR-driven provisioning, and only *annual* access reviews. The Enterprise Security job post (Sep 2026) lists contractor/BYOD access, AI-agent data controls, and privileged access as the roadmap.
-- Lambda Cloud API keys have full access to all API operations. Console SSO (SAML/OIDC) is 1CC-only, by invitation, with JIT provisioning and no documented SCIM.
-- `cloud.lambda.ai` and `trust.lambda.ai` now redirect to `lambda.com`. The trust portal is SafeBase; its Auth0/Drata strings belong to SafeBase, not Lambda.
+- Identity (`site/identity.html`, evidence in `corpus/research/identity-2026-11.md` and `refresh-2026-11-16.md`): Google Workspace is confirmed (MX/SPF). **Okta is confirmed** as the workforce IdP by the Oct 2026 Workday Integration Architect post (Workday → Okta JML, access provisioning through Lumos; stack also lists NetSuite, Workato, BigQuery). Which tenant (`lambda.okta.com` IE vs `lambdal.okta.com` Classic) is production is still `tag-inferred`. Trust-portal SOC 2 text confirms MFA on the IAM platform, HR-driven provisioning, and only *annual* access reviews. The Enterprise Security job post (Sep 2026) lists contractor/BYOD access, AI-agent data controls, and privileged access as the roadmap.
+- Lambda Cloud IAM/RBAC launched Nov 4, 2026 (`corpus/blog/lambda.ai__blog__lambda-cloud-iam-rbac.md`): roles, groups, service identities with expiring keys. Before that every API key had its owner's full access; the docs still say so, and legacy personal keys stay live until deleted. Console SSO (SAML/OIDC) is 1CC-only, by invitation, with JIT provisioning and no documented SCIM.
+- Lambda moved to `lambda.com` on Nov 5, 2026; `lambda.ai`, `docs.lambda.ai`, `cloud.lambda.ai`, and `trust.lambda.ai` redirect. Official domains list: `corpus/site/lambda.ai__site-and-email-domains.md`. Sitemaps now list `lambda.com` URLs; `crawl.py`'s `slug()` maps them back to `lambda.ai__` filenames so the corpus doesn't duplicate. Corpus filenames and site links still use the `.ai` URLs; they redirect. The trust portal is SafeBase; its Auth0/Drata strings belong to SafeBase, not Lambda.
 
 ## Research tooling
 

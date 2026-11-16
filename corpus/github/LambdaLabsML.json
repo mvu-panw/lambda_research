@@ -17,7 +17,7 @@
     "description": "Best practices & guides on how to write distributed pytorch training code",
     "html_url": "https://github.com/LambdaLabsML/distributed-training-guide",
     "language": "Python",
-    "stargazers_count": 633,
+    "stargazers_count": 635,
     "pushed_at": "2025-10-22T21:27:41Z",
     "archived": false,
     "fork": false,
@@ -284,7 +284,7 @@
     "description": "A single executable notebook showing how to use turbopairformer, developed by Lambda, Stevens Institute of Technology, and OpenFold \u2014 standalone CUDA kernels for the two most expensive operations in an AlphaFold3-style pair stack.",
     "html_url": "https://github.com/LambdaLabsML/TurboPairFormer-Quickstart",
     "language": "Jupyter Notebook",
-    "stargazers_count": 3,
+    "stargazers_count": 4,
     "pushed_at": "2026-10-07T20:09:11Z",
     "archived": false,
     "fork": false,
@@ -648,6 +648,18 @@
     "pushed_at": "2025-08-17T04:53:09Z",
     "archived": false,
     "fork": false,
+    "topics": []
+  },
+  {
+    "name": "torchtitan",
+    "full_name": "LambdaLabsML/torchtitan",
+    "description": "A PyTorch native platform for training generative AI models",
+    "html_url": "https://github.com/LambdaLabsML/torchtitan",
+    "language": "Python",
+    "stargazers_count": 1,
+    "pushed_at": "2026-11-11T20:16:22Z",
+    "archived": false,
+    "fork": true,
     "topics": []
   },
   {
@@ -1167,18 +1179,6 @@
     "topics": []
   },
   {
-    "name": "torchtitan",
-    "full_name": "LambdaLabsML/torchtitan",
-    "description": "A PyTorch native platform for training generative AI models",
-    "html_url": "https://github.com/LambdaLabsML/torchtitan",
-    "language": "Python",
-    "stargazers_count": 0,
-    "pushed_at": "2026-10-27T18:24:59Z",
-    "archived": false,
-    "fork": true,
-    "topics": []
-  },
-  {
     "name": "agentbeats-submission-action",
     "full_name": "LambdaLabsML/agentbeats-submission-action",
     "description": null,
@@ -1219,9 +1219,9 @@
     "full_name": "LambdaLabsML/laila-core",
     "description": null,
     "html_url": "https://github.com/LambdaLabsML/laila-core",
-    "language": "JavaScript",
+    "language": "Rust",
     "stargazers_count": 0,
-    "pushed_at": "2026-10-07T04:28:57Z",
+    "pushed_at": "2026-11-06T21:41:48Z",
     "archived": false,
     "fork": false,
     "topics": []
@@ -1320,6 +1320,18 @@
     "pushed_at": "2026-09-29T12:08:13Z",
     "archived": false,
     "fork": false,
+    "topics": []
+  },
+  {
+    "name": "vllm",
+    "full_name": "LambdaLabsML/vllm",
+    "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+    "html_url": "https://github.com/LambdaLabsML/vllm",
+    "language": null,
+    "stargazers_count": 0,
+    "pushed_at": "2026-11-01T22:37:37Z",
+    "archived": false,
+    "fork": true,
     "topics": []
   }
 ]

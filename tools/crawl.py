@@ -7,6 +7,7 @@ Usage:
 """
 import csv
 import json
+import os
 import re
 import subprocess
 import sys
@@ -18,7 +19,9 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent / "corpus"
-UA = "Mozilla/5.0 (research-crawler)"
+# Generic client name; set CRAWL_CONTACT in your shell if a site needs a contact address.
+_contact = os.environ.get("CRAWL_CONTACT")
+UA = f"Mozilla/5.0 (research-crawler{'; contact ' + _contact if _contact else ''})"
 DELAY = 1.0  # seconds between requests
 SITEMAPS = {
     "docs": "https://docs.lambda.ai/sitemap.xml",
@@ -79,7 +82,9 @@ class TextExtractor(HTMLParser):
 
 def slug(url):
     p = urlparse(url)
-    s = (p.netloc + p.path).strip("/").replace("/", "__")
+    # Lambda moved lambda.ai -> lambda.com (Nov 2026); keep the original .ai filenames so pages aren't refetched
+    netloc = re.sub(r"(^|\.)lambda\.com$", r"\1lambda.ai", p.netloc)
+    s = (netloc + p.path).strip("/").replace("/", "__")
     return re.sub(r"[^A-Za-z0-9_.-]", "-", s) or "index"
 
 
